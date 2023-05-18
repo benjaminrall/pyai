@@ -28,7 +28,7 @@ class Network:
         return input
     
     def evaluate_cost(self, inputs: np.ndarray, expecteds: np.ndarray) -> float:
-        return self.loss.call(self.forward(inputs), expecteds)
+        return self.loss(self.forward(inputs), expecteds)
 
     def evaluate_accuracy(self, inputs: np.ndarray, expecteds: np.ndarray) -> float:
         outputs = self.forward(inputs).argmax(axis=1)

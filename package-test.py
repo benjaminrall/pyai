@@ -1,7 +1,7 @@
 from keras.datasets import mnist
-import pyai
 from pyai.layers import Dense
 from pyai.backend import one_hot_encode
+import pyai
 
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 
@@ -23,6 +23,6 @@ network.compile(
 
 network.fit(
     train_images, train_labels,
-    train_images, train_labels,
+    test_images, test_labels,
     10, 0.01, 20
 )
