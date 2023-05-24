@@ -5,7 +5,7 @@ import numpy as np
 
 # Tanh activation function
 class Tanh(Activation):
-    name = "tanh"
+    name = 'tanh'
     weights_initialiser = GlorotUniform()
 
     def call(self, x: np.ndarray) -> np.ndarray:

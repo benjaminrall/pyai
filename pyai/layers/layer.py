@@ -1,13 +1,14 @@
 from abc import ABC, abstractmethod
 import numpy as np
 
-# Base class for layers in the network 
 class Layer(ABC):
+    """Abstract base class for all layers in neural networks."""
+
     @abstractmethod
     def __init__(self) -> None:
-        self.parameters: int = None
         self.input_shape: tuple = None
         self.output_shape: tuple = None
+        self.parameters: int = None
         self.built: bool = False
 
     def __call__(self, input: np.ndarray) -> np.ndarray:
@@ -15,15 +16,16 @@ class Layer(ABC):
 
     @abstractmethod
     def build(self, input_shape: tuple) -> tuple:
-        pass
+        """Initialises the layer's variables."""
 
     @abstractmethod
     def forward(self, input: np.ndarray) -> np.ndarray:
-        pass
+        """Passes an input forward through the layer."""
 
     @abstractmethod
     def backward(self, derivatives: np.ndarray, eta: float) -> np.ndarray:
-        pass
+        """Performs a backwards pass through the network and applies parameter changes."""
 
     def penalty(self) -> float:
+        """Returns the regularisation penalty of the layer."""
         return 0

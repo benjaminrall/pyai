@@ -3,7 +3,7 @@ from pyai.backend.losses import categorical_crossentropy, convert_logits
 import numpy as np
 
 class CategoricalCrossentropy(Loss):
-    name = "categorical_crossentropy"
+    name = 'categorical_crossentropy'
 
     def __init__(self, from_logits: bool = False) -> None:
         self.from_logits = from_logits

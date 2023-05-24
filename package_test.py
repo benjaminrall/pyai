@@ -18,9 +18,7 @@ network = pyai.Network([
     Dense(10, 'softmax'),
 ])
 
-network.compile(
-    loss='categorical_crossentropy'
-)
+network.compile(loss='categorical_crossentropy')
 
 network.fit(
     train_images, train_labels,

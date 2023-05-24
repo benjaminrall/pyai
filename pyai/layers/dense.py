@@ -31,7 +31,6 @@ class Dense(Layer):
         self.weight_regulariser = regularisers.get(weight_regulariser, True)
 
     def build(self, input_shape: tuple) -> tuple:
-        """Constructs the layer's weight and biases for a given input shape."""
         # Sets input and output shapes and counts parameters
         self.input_shape = input_shape
         self.output_shape = (input_shape[:-1]) + (self.units,)
@@ -41,28 +40,36 @@ class Dense(Layer):
 
         # Initialises weights and biases
         self.weights = self.weight_initialiser((self.input_shape[-1], self.units))
-        self.biases = np.zeros(self.units)
+        self.biases = self.bias_initialiser((self.units,))
 
         self.built = True
         return self.output_shape
 
     def forward(self, input: np.ndarray) -> np.ndarray:
-        """Passes an input forward through the layer."""
+        # Builds the layer if it has not yet been built.
         if not self.built:
             self.build(input.shape)
+
+        # Stores the input and calculates z output
         self.input = input
         self.z = np.dot(input, self.weights) + self.biases
-        return self.activation(self.z)
+
+        # Applies activation function if necessary
+        if self.activation is not None:
+            return self.activation(self.z)
+        return self.z
 
     def backward(self, derivatives: np.ndarray, eta: float) -> np.ndarray:
-        """Calculates layer derivatives and applies gradients to the parameters."""
-        # Calculates z derivatives and uses that to find the layer node derivatives
-        z_derivatives = self.activation.derivative(self.z) * derivatives
-        derivatives = np.dot(z_derivatives, self.weights.T)
+        # Calculates derivatives for the activation function if one was applied
+        if self.activation is not None:
+            derivatives = self.activation.derivative(self.z) * derivatives
+
+        # Calculates derivatives for the layer nodes
+        delta = np.dot(derivatives, self.weights.T)
 
         # Calculates gradients for the weights and biases
-        nabla_w = np.dot(self.input.T, z_derivatives)
-        nabla_b = np.sum(z_derivatives, axis=0)
+        nabla_w = np.dot(self.input.T, derivatives)
+        nabla_b = np.sum(derivatives, axis=0)
 
         # Applies regularisation to the weight gradients
         if self.weight_regulariser is not None:
@@ -72,10 +79,9 @@ class Dense(Layer):
         self.weights -= eta * nabla_w  
         self.biases -= eta * nabla_b
 
-        return derivatives
+        return delta
     
     def penalty(self) -> float:
-        """Returns the regularisation penalty for the current weights."""
-        if self.built and self.weight_regulariser:
+        if self.built and self.weight_regulariser is not None:
             return self.weight_regulariser(self.weights)
         return 0

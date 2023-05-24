@@ -23,6 +23,7 @@ network.compile(
     optimizer=keras.optimizers.SGD(learning_rate=0.1),
     metrics=['accuracy']
 )
+Dense(100).build()
 
 network.fit(
     train_images, train_labels,
