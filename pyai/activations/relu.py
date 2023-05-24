@@ -1,4 +1,4 @@
-from .activation import Activation
+from pyai.activations.activation import Activation
 from pyai.backend.activations import relu
 from pyai.initialisers import HeNormal
 import numpy as np

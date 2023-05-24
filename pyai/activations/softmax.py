@@ -1,4 +1,4 @@
-from .activation import Activation
+from pyai.activations.activation import Activation
 from pyai.backend.activations import softmax
 from pyai.initialisers import GlorotUniform
 import numpy as np

@@ -1,4 +1,4 @@
-from .loss import Loss
+from pyai.losses.loss import Loss
 from pyai.backend.losses import categorical_crossentropy, convert_logits
 import numpy as np
 

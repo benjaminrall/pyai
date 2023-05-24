@@ -1,4 +1,4 @@
-from .loss import Loss
+from pyai.losses.loss import Loss
 from pyai.backend.losses import mean_squared_error
 import numpy as np
 

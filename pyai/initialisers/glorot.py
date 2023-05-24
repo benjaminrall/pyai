@@ -1,4 +1,4 @@
-from .initialiser import Initialiser
+from pyai.initialisers.initialiser import Initialiser
 import numpy as np
 
 class GlorotNormal(Initialiser):

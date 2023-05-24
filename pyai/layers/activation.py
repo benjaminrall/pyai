@@ -1,4 +1,4 @@
-from .layer import Layer
+from pyai.layers.layer import Layer
 import pyai.activations as activations
 import numpy as np
 
