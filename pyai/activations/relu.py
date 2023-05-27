@@ -5,8 +5,7 @@ import numpy as np
 
 # ReLU activation function
 class ReLU(Activation):
-    name = "relu"
-    weights_initialiser = HeNormal()
+    name = 'relu'
 
     def call(self, x: np.ndarray) -> np.ndarray:
         return relu(x)

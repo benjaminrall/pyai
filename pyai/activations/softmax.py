@@ -5,8 +5,7 @@ import numpy as np
 
 # Softmax activation function
 class Softmax(Activation):
-    name = "softmax"
-    weights_initialiser = GlorotUniform()
+    name = 'softmax'
 
     def call(self, x: np.ndarray) -> np.ndarray:
         return softmax(x)

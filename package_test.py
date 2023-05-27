@@ -11,7 +11,6 @@ train_labels = one_hot_encode(train_labels, 10)
 test_images = (test_images / 255).reshape(-1, 784)
 test_labels = one_hot_encode(test_labels, 10)
 
-np.random.seed(0)
 network = pyai.Network([
     Dense(100, 'relu'),
     Dense(100, 'sigmoid'),
@@ -25,5 +24,3 @@ network.fit(
     10, 20, 0.01,
     test_images, test_labels
 )
-
-print(network.evaluate_accuracy(test_images, test_labels))

@@ -5,8 +5,7 @@ import numpy as np
 
 # Sigmoid activation function
 class Sigmoid(Activation):
-    name = "sigmoid"
-    weights_initialiser = GlorotUniform()
+    name = 'sigmoid'
 
     def call(self, x: np.ndarray) -> np.ndarray:
         return sigmoid(x)

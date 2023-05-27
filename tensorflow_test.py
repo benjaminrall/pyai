@@ -13,7 +13,7 @@ test_labels = one_hot(test_labels, 10)
 
 np.random.seed(0)
 network = keras.Sequential([
-    Dense(100, 'relu', kernel_regularizer=keras.regularizers.L2(0.002)),
+    Dense(100, 'relu'),
     Dense(100, 'sigmoid'),
     Dense(10, 'softmax'),
 ])
@@ -23,7 +23,6 @@ network.compile(
     optimizer=keras.optimizers.SGD(learning_rate=0.1),
     metrics=['accuracy']
 )
-Dense(100).build()
 
 network.fit(
     train_images, train_labels,

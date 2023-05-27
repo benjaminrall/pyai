@@ -8,3 +8,4 @@ from pyai import initialisers
 from pyai import layers
 from pyai import losses
 from pyai import regularisers
+from pyai import optimisers

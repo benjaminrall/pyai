@@ -5,7 +5,6 @@ import numpy as np
 # Base class for all activation functions
 class Activation(ABC):
     name: str
-    weights_initialiser: Initialiser
 
     def __call__(self, x: np.ndarray) -> np.ndarray:
         return self.call(x)
