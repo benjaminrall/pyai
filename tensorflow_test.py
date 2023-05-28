@@ -11,12 +11,13 @@ train_labels = one_hot(train_labels, 10)
 test_images = (test_images / 255).reshape(-1, 784)
 test_labels = one_hot(test_labels, 10)
 
-np.random.seed(0)
 network = keras.Sequential([
     Dense(100, 'relu'),
     Dense(100, 'sigmoid'),
     Dense(10, 'softmax'),
 ])
+
+np.random.seed(0)
 
 network.compile(
     loss='categorical_crossentropy',
@@ -29,4 +30,4 @@ network.fit(
     10, 20
 )
 
-network.evaluate(test_images, test_labels)
+network.evaluate(test_images, test_labels, 1)

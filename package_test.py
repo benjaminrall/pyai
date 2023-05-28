@@ -17,10 +17,16 @@ network = pyai.Network([
     Dense(10, 'softmax'),
 ])
 
-network.compile(loss='categorical_crossentropy')
+np.random.seed(0)
+
+network.compile(
+    loss='categorical_crossentropy',
+    # TODO: Divide learning rate by batch size in optimiser (should be 0.1 here)
+    optimiser=pyai.optimisers.SGD(0.01, 0.6)
+)
 
 network.fit(
     train_images, train_labels,
-    10, 20, 0.01,
+    10, 20,
     test_images, test_labels
 )

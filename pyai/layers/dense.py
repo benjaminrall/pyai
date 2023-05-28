@@ -40,7 +40,9 @@ class Dense(Layer):
 
         # Initialises weights and biases
         self.weights = self.weight_initialiser((self.input_shape[-1], self.units))
+        self.weight_gradients = np.zeros((self.input_shape[-1], self.units))
         self.biases = self.bias_initialiser((self.units,))
+        self.bias_gradients = np.zeros((self.units,))
 
         self.built = True
         return self.output_shape
@@ -59,7 +61,7 @@ class Dense(Layer):
             return self.activation(self.z)
         return self.z
 
-    def backward(self, derivatives: np.ndarray, eta: float) -> np.ndarray:
+    def backward(self, derivatives: np.ndarray) -> np.ndarray:
         # Calculates derivatives for the activation function if one was applied
         if self.activation is not None:
             derivatives = self.activation.derivative(self.z) * derivatives
@@ -68,20 +70,26 @@ class Dense(Layer):
         delta = np.dot(derivatives, self.weights.T)
 
         # Calculates gradients for the weights and biases
-        nabla_w = np.dot(self.input.T, derivatives)
-        nabla_b = np.sum(derivatives, axis=0)
+        self.weight_gradients = np.dot(self.input.T, derivatives)
+        self.bias_gradients = np.sum(derivatives, axis=0)
 
         # Applies regularisation to the weight gradients
         if self.weight_regulariser is not None:
-            nabla_w += self.input.shape[0] * self.weight_regulariser.derivative(self.weights)
-
-        # Adjusts weights and biases using calculated gradients
-        self.weights -= eta * nabla_w  
-        self.biases -= eta * nabla_b
-
+            self.weight_gradients += self.input.shape[0] * self.weight_regulariser.derivative(self.weights)
+            
         return delta
     
     def penalty(self) -> float:
         if self.built and self.weight_regulariser is not None:
             return self.weight_regulariser(self.weights)
-        return 0
+        return super().penalty()
+    
+    def variables(self) -> tuple[np.ndarray]:
+        if self.built:        
+            return (self.weights, self.biases)
+        return super().variables()
+    
+    def gradients(self) -> tuple[np.ndarray]:
+        if self.built:        
+            return (self.weight_gradients, self.bias_gradients)
+        return super().gradients()

@@ -29,3 +29,11 @@ class Layer(ABC):
     def penalty(self) -> float:
         """Returns the regularisation penalty of the layer."""
         return 0
+    
+    def variables(self) -> tuple[np.ndarray]:
+        """Returns the layer's trainable variables."""
+        return ()
+        
+    def gradients(self) -> tuple[np.ndarray]:
+        """Returns the layer's trainable variables' gradients."""
+        return ()
