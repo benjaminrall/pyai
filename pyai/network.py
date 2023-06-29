@@ -1,5 +1,5 @@
 from pyai.layers.layer import Layer
-from pyai.backend.progress import ProgressBar
+from pyai.backend.progress_bar import ProgressBar
 import pyai.losses as losses
 import pyai.optimisers as optimisers
 import numpy as np
@@ -37,15 +37,7 @@ class Network:
         for layer in self.layers:
             input = layer(input)
         return input
-    
-    def variables(self) -> list[np.ndarray]:
-        """Returns a list containing all of the variables in the network."""
-        return [v for layer in self.layers for v in layer.variables()]
-    
-    def gradients(self) -> list[np.ndarray]:
-        """Returns a list containing all of the variables' gradients in the network."""
-        return [g for layer in self.layers for g in layer.gradients()]
-    
+
     def evaluate_loss(self, inputs: np.ndarray, outputs: np.ndarray) -> float:
         """Evaluates the loss of the network for a given set of inputs and outputs."""
         return self.loss(self.forward(inputs), outputs) + self.penalty()
@@ -68,6 +60,7 @@ class Network:
             test_inputs: np.ndarray = None, test_outputs: np.ndarray = None,
             verbose: bool = True) -> None:
         """Trains the model on a given set of training inputs and outputs."""
+        # Ensures that the network is compiled (if it isn't, its compiled with default settings)
         if not self.compiled:
             self.compile()
 
@@ -76,33 +69,33 @@ class Network:
         test_inputs = test_inputs if using_test_data else train_inputs
         test_outputs = test_outputs if using_test_data else train_outputs
 
+        training_samples = train_inputs.shape[0]
+
         # Trains the network for the given number of epochs
         for epoch in range(epochs):
             # Generates a random permutation of the training inputs and outputs
-            p = np.random.permutation(train_inputs.shape[0])
+            p = np.random.permutation(training_samples)
             train_inputs, train_outputs = train_inputs[p], train_outputs[p]
 
-            batch_indices = range(0, train_inputs.shape[0], batch_size)
+            batch_indices = range(0, training_samples, batch_size)
 
             # Creates a progress bar if training verbosely        
             if verbose: batch_indices = ProgressBar(
                 'Epoch {:{}d}/{:d}'.format(epoch + 1, len(str(epochs)), epochs), 
-                batch_indices, 0.001, 20, False
+                batch_indices, 0.01, 20, False
             )
 
             # Adjusts the network for all training batches using backpropagation
             for i in batch_indices:
+                # Calculates loss derivative and averages over the batch
                 derivatives = self.loss.derivative(
                     self.forward(train_inputs[i : i + batch_size]), 
                     train_outputs[i : i + batch_size]
-                )
-
+                ) / batch_size
+                
                 # Performs the backwards pass
                 for layer in reversed(self.layers):
-                    derivatives = layer.backward(derivatives)
-
-                # Adjusts network variables using the optimiser
-                self.optimiser(self.variables(), self.gradients())
+                    derivatives = layer.backward(derivatives, self.optimiser)
 
             # Prints final loss and accuracy measurements if training verbosely
             if verbose: print(" - Loss: {:.10f} - Accuracy: {:.2%}".format(

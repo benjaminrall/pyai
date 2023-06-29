@@ -21,13 +21,12 @@ np.random.seed(0)
 
 network.compile(
     loss='categorical_crossentropy',
-    optimizer=keras.optimizers.SGD(learning_rate=0.1),
+    optimizer=keras.optimizers.RMSprop(),
     metrics=['accuracy']
 )
 
 network.fit(
-    train_images, train_labels,
-    10, 20
+    train_images, train_labels, 10, 10
 )
 
 network.evaluate(test_images, test_labels, 1)

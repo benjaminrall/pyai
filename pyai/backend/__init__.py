@@ -1,4 +1,4 @@
-from pyai.backend.progress import ProgressBar
+from pyai.backend.progress_bar import ProgressBar
 
 from pyai.backend.utilities import epsilon
 from pyai.backend.utilities import epsilon_clip
