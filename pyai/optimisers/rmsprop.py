@@ -12,10 +12,11 @@ class RMSprop(Optimiser):
         self.rho = rho
         self.one_sub_rho = 1 - rho
         self.averages = defaultdict(lambda : defaultdict(lambda : 0))
+        self.epsilon = epsilon()
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:
         layer_averages = self.averages[layer]
         for i in range(len(gradients)):
             layer_averages[i] = self.rho * layer_averages[i] + self.one_sub_rho * np.square(gradients[i])
-            gradients[i] = -self.eta * gradients[i] / (np.sqrt(layer_averages[i]) + epsilon())
+            gradients[i] = -self.eta * gradients[i] / (np.sqrt(layer_averages[i]) + self.epsilon)
         return gradients

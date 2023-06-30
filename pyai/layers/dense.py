@@ -42,6 +42,8 @@ class Dense(Layer):
         # Initialises weights and biases
         self.weights = self.weight_initialiser((self.input_shape[-1], self.units))
         self.biases = self.bias_initialiser((self.units,))
+
+        self.variables = [self.weights, self.biases]
         
         self.built = True
         return self.output_shape

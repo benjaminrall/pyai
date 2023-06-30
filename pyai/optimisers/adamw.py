@@ -4,11 +4,13 @@ from pyai.backend.utilities import epsilon
 from collections import defaultdict
 import numpy as np
 
-class Adam(Optimiser):
-    name = 'adam'
+class AdamW(Optimiser):
+    name = 'adamw'
 
-    def __init__(self, eta: float = 0.001, beta_1: float = 0.9, beta_2: float = 0.999, bias_correction: bool = True) -> None:
+    def __init__(self, eta: float = 0.001, weight_decay: float = 0.004, 
+                 beta_1: float = 0.9, beta_2: float = 0.999, bias_correction: bool = True) -> None:
         self.eta = eta
+        self.weight_decay = weight_decay
         self.beta_1 = beta_1
         self.one_sub_beta_1 = 1 - beta_1
         self.beta_2 = beta_2
@@ -21,8 +23,10 @@ class Adam(Optimiser):
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:
         iteration = self.iterations[layer] = self.iterations[layer] + 1
+
         layer_M = self.m[layer]
         layer_V = self.v[layer]
+        
         for i in range(len(gradients)):
             corrected_M = layer_M[i] = self.beta_1 * layer_M[i] + self.one_sub_beta_1 * gradients[i]
             corrected_V = layer_V[i] = self.beta_2 * layer_V[i] + self.one_sub_beta_2 * np.square(gradients[i])
@@ -31,5 +35,7 @@ class Adam(Optimiser):
                 corrected_M = layer_M[i] / (1 - np.power(self.beta_1, iteration))
                 corrected_V = layer_V[i] / (1 - np.power(self.beta_2, iteration))
 
-            gradients[i] = -self.eta * corrected_M / (np.sqrt(corrected_V) + self.epsilon)
+            gradients[i] = -self.eta * (corrected_M / (np.sqrt(corrected_V) + self.epsilon) 
+                                        + self.weight_decay * layer.variables[i])
+        
         return gradients

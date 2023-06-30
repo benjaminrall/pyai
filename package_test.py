@@ -22,7 +22,7 @@ network = pyai.Network([
 
 network.compile(
     loss='categorical_crossentropy',
-    optimiser=pyai.optimisers.RMSprop()
+    optimiser=pyai.optimisers.Nadam()
 )
 
 network.fit(train_images, train_labels, 10, 10, test_images, test_labels)

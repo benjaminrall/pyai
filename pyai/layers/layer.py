@@ -12,6 +12,7 @@ class Layer(ABC):
         self.input_shape: tuple = None
         self.output_shape: tuple = None
         self.parameters: int = None
+        self.variables: list[np.ndarray] = []
         self.built: bool = False
 
     def __call__(self, input: np.ndarray) -> np.ndarray:

@@ -21,7 +21,7 @@ np.random.seed(0)
 
 network.compile(
     loss='categorical_crossentropy',
-    optimizer=keras.optimizers.RMSprop(),
+    optimizer=keras.optimizers.AdamW(),
     metrics=['accuracy']
 )
 
