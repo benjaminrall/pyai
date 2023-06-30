@@ -22,8 +22,8 @@ network = pyai.Network([
 
 network.compile(
     loss='categorical_crossentropy',
-    optimiser=pyai.optimisers.Nadam()
+    optimiser=pyai.optimisers.Adadelta(1)
 )
 
-network.fit(train_images, train_labels, 10, 10, test_images, test_labels)
+network.fit(train_images, train_labels, 10, 10)
 #cProfile.run('network.fit(train_images, train_labels, 10, 1, test_images, test_labels)')
