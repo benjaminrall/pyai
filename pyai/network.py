@@ -20,8 +20,8 @@ class Network:
         """Removes the last layer of the network."""
         return self.layers.pop()
     
-    def compile(self, loss: str | losses.Loss = "mean_squared_error",
-                optimiser: str | optimisers.Optimiser = 'sgd') -> None:
+    def compile(self, loss: str | losses.Loss,
+                optimiser: str | optimisers.Optimiser = 'rmsprop') -> None:
         """Configures the network for training."""
         self.loss = losses.get(loss)
         self.optimiser = optimisers.get(optimiser)

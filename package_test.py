@@ -11,7 +11,6 @@ train_labels = one_hot_encode(train_labels, 10)
 test_images = (test_images / 255).reshape(-1, 784)
 test_labels = one_hot_encode(test_labels, 10)
 
-import cProfile
 np.random.seed(0)
 
 network = pyai.Network([
@@ -22,8 +21,6 @@ network = pyai.Network([
 
 network.compile(
     loss='categorical_crossentropy',
-    optimiser=pyai.optimisers.Adadelta(1)
 )
 
 network.fit(train_images, train_labels, 10, 10)
-#cProfile.run('network.fit(train_images, train_labels, 10, 1, test_images, test_labels)')

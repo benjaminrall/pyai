@@ -21,7 +21,6 @@ np.random.seed(0)
 
 network.compile(
     loss='categorical_crossentropy',
-    optimizer=keras.optimizers.Adadelta(1),
     metrics=['accuracy']
 )
 
