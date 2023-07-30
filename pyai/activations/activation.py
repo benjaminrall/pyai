@@ -1,9 +1,9 @@
-from abc import ABC, abstractmethod
-from pyai.initialisers.initialiser import Initialiser
 import numpy as np
+from abc import ABC, abstractmethod
 
-# Base class for all activation functions
 class Activation(ABC):
+    """The class from which all activation functions inherit."""
+
     name: str
 
     def __call__(self, x: np.ndarray) -> np.ndarray:
@@ -11,8 +11,8 @@ class Activation(ABC):
 
     @abstractmethod
     def call(self, x: np.ndarray) -> np.ndarray:
-        pass
+        """Applies the activation function to an input."""
 
     @abstractmethod
     def derivative(self, x: np.ndarray) -> np.ndarray:
-        pass
+        """Applies the derivative of the activation function to an input."""

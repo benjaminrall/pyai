@@ -1,9 +1,15 @@
+"""PyAI built-in loss functions."""
+
 from pyai.losses.loss import Loss
 from pyai.losses.mean_squared_error import MeanSquaredError
 from pyai.losses.binary_crossentropy import BinaryCrossentropy
 from pyai.losses.categorical_crossentropy import CategoricalCrossentropy
 
 def get(identifier: str | Loss, allow_none: bool = False) -> Loss:
+    """Retrieves a loss function as a class instance.
+    
+    The identifier may be the name of a loss function or a class instance.
+    """
     # Returns None in the case that none is allowed
     if identifier is None and allow_none:
         return None

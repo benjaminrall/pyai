@@ -1,3 +1,5 @@
+"""PyAI backend API."""
+
 from pyai.backend.progress_bar import ProgressBar
 
 from pyai.backend.utilities import epsilon
@@ -15,3 +17,6 @@ from pyai.backend.losses import mean_squared_error
 from pyai.backend.losses import binary_crossentropy
 from pyai.backend.losses import convert_logits
 from pyai.backend.losses import categorical_crossentropy
+
+from pyai.backend.regularisers import l1
+from pyai.backend.regularisers import l2

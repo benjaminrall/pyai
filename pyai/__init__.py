@@ -1,5 +1,4 @@
 """A Python library providing various machine learning models and functions."""
-
 from pyai.network import Network
 
 from pyai import activations

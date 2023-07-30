@@ -1,9 +1,9 @@
-from pyai.activations.activation import Activation
-from pyai.initialisers import GlorotUniform
 import numpy as np
+from pyai.activations.activation import Activation
 
-# Default (Linear) activation function that doesn't change the inputs
 class Linear(Activation):
+    """Linear activation function (pass-through)."""
+
     name = 'linear'
 
     def call(self, x: np.ndarray) -> np.ndarray:

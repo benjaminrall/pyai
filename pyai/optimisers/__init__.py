@@ -1,3 +1,5 @@
+"""PyAI built-in optimisers."""
+
 from pyai.optimisers.optimiser import Optimiser
 from pyai.optimisers.sgd import SGD 
 from pyai.optimisers.rmsprop import RMSprop
@@ -9,6 +11,10 @@ from pyai.optimisers.adamax import Adamax
 from pyai.optimisers.nadam import Nadam
 
 def get(identifier: str | Optimiser, allow_none: bool = False) -> Optimiser:
+    """Retrieves an optimiser as a class instance.
+    
+    The identifier may be the name of an optimiser or a class instance.
+    """
     # Returns None in the case that none is allowed
     if identifier is None and allow_none:
         return None

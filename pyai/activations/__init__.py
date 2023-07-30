@@ -1,3 +1,5 @@
+"""PyAI built-in activation functions."""
+
 from pyai.activations.activation import Activation
 from pyai.activations.linear import Linear
 from pyai.activations.sigmoid import Sigmoid
@@ -6,6 +8,10 @@ from pyai.activations.relu import ReLU
 from pyai.activations.softmax import Softmax
 
 def get(identifier: str | Activation, allow_none: bool = False) -> Activation:
+    """Retrieves an activation function as a class instance.
+    
+    The identifier may be the name of an activation function or a class instance.
+    """
     # Returns None in the case that none is allowed
     if identifier is None and allow_none:
         return None

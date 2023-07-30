@@ -1,3 +1,5 @@
+"""PyAI built-in initialisers."""
+
 from pyai.initialisers.initialiser import Initialiser
 from pyai.initialisers.glorot import GlorotNormal
 from pyai.initialisers.glorot import GlorotUniform
@@ -10,6 +12,10 @@ from pyai.initialisers.constant import Ones
 from pyai.initialisers.constant import Constant
 
 def get(identifier: str | Initialiser, allow_none: bool = False) -> Initialiser:
+    """Retrieves an initialiser as a class instance.
+    
+    The identifier may be the name of an initialiser or a class instance.
+    """
     # Returns None in the case that none is allowed
     if identifier is None and allow_none:
         return None

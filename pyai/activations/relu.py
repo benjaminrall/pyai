@@ -1,10 +1,10 @@
+import numpy as np
 from pyai.activations.activation import Activation
 from pyai.backend.activations import relu
-from pyai.initialisers import HeNormal
-import numpy as np
 
-# ReLU activation function
 class ReLU(Activation):
+    """Applies the rectified linear unit activation function."""
+
     name = 'relu'
 
     def call(self, x: np.ndarray) -> np.ndarray:

@@ -1,10 +1,10 @@
+import numpy as np
 from pyai.activations.activation import Activation
 from pyai.backend.activations import softmax
-from pyai.initialisers import GlorotUniform
-import numpy as np
 
-# Softmax activation function
 class Softmax(Activation):
+    """Softmax converts a vector of values to a probability distribution."""
+
     name = 'softmax'
 
     def call(self, x: np.ndarray) -> np.ndarray:

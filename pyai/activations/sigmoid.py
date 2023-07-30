@@ -1,10 +1,10 @@
+import numpy as np
 from pyai.activations.activation import Activation
 from pyai.backend.activations import sigmoid
-from pyai.initialisers import GlorotUniform
-import numpy as np
 
-# Sigmoid activation function
 class Sigmoid(Activation):
+    """Sigmoid activation function, `sigmoid(x) = 1 / (1 + exp(-x))`."""
+
     name = 'sigmoid'
 
     def call(self, x: np.ndarray) -> np.ndarray:

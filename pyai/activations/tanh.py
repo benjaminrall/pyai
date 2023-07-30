@@ -1,10 +1,10 @@
+import numpy as np
 from pyai.activations.activation import Activation
 from pyai.backend.activations import tanh
-from pyai.initialisers import GlorotUniform
-import numpy as np
 
-# Tanh activation function
 class Tanh(Activation):
+    """Hyperbolic tangent activation function."""
+
     name = 'tanh'
 
     def call(self, x: np.ndarray) -> np.ndarray:
