@@ -1,8 +1,9 @@
-from abc import ABC, abstractmethod
 import numpy as np
+from abc import ABC, abstractmethod
 
-# Base class for initialisers
 class Initialiser(ABC):
+    """The class from which all initialisers inherit."""
+
     name: str
 
     def __call__(self, shape: tuple) -> np.ndarray:
@@ -10,4 +11,4 @@ class Initialiser(ABC):
 
     @abstractmethod
     def call(self, shape: tuple) -> np.ndarray:
-        pass
+        """Returns a tensor of shape `shape` filled with values from the initialiser."""

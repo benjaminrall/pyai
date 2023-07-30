@@ -1,7 +1,9 @@
-from pyai.initialisers.initialiser import Initialiser
 import numpy as np
+from pyai.initialisers.initialiser import Initialiser
 
 class HeNormal(Initialiser):
+    """He normal initialiser."""
+
     name = 'he_normal'
     
     def call(self, shape: tuple) -> np.ndarray:
@@ -9,6 +11,8 @@ class HeNormal(Initialiser):
         return np.random.normal(scale=scale, size=shape)
     
 class HeUniform(Initialiser):
+    """He uniform variance scaling initialiser."""
+
     name = 'he_uniform'
     
     def call(self, shape: tuple) -> np.ndarray:

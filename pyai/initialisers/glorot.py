@@ -1,7 +1,9 @@
-from pyai.initialisers.initialiser import Initialiser
 import numpy as np
+from pyai.initialisers.initialiser import Initialiser
 
 class GlorotNormal(Initialiser):
+    """The Glorot normal initialiser, also called the Xavier normal initialiser."""
+
     name = 'glorot_normal'
     
     def call(self, shape: tuple) -> np.ndarray:
@@ -9,6 +11,8 @@ class GlorotNormal(Initialiser):
         return np.random.normal(scale=scale, size=shape)
     
 class GlorotUniform(Initialiser):
+    """The Glorot uniform initialiser, also called the Xavier uniform initialiser."""
+
     name = 'glorot_uniform'
     
     def call(self, shape: tuple) -> np.ndarray:
