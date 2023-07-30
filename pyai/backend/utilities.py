@@ -18,7 +18,7 @@ def normalise_subarrays(x: np.ndarray) -> np.ndarray:
 def one_hot_encode(x: np.ndarray, classes: int = -1) -> np.ndarray:
     """Performs one-hot encoding on an input array with a given number of classes.
 
-    If 'classes' is invalid, then it is automatically recalculated as x.max() + 1
+    If `classes` is invalid, then it is automatically recalculated as `x.max() + 1`.`
     """
     classes = max(np.max(x) + 1, classes)
     one_hot = np.zeros((x.size, classes))

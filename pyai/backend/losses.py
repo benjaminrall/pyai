@@ -1,6 +1,6 @@
-from .utilities import epsilon_clip, normalise_subarrays
-from .activations import softmax
 import numpy as np
+from pyai.backend.activations import softmax
+from pyai.backend.utilities import epsilon_clip, normalise_subarrays
 
 def mean_squared_error(output: np.ndarray, target: np.ndarray) -> float:
     """Calculates the mean squared error loss between an output and target."""
@@ -18,7 +18,7 @@ def binary_crossentropy(output: np.ndarray, target: np.ndarray, from_logits: boo
     return -np.mean(target * np.log(output) + (1 - target) * np.log(1 - output))
 
 def convert_logits(x: np.ndarray, from_logits: bool) -> np.ndarray:
-    """Converts an array to a probability distribution or normalised array."""
+    """Converts an array to a either a probability distribution or normalised array."""
     return softmax(x) if from_logits else normalise_subarrays(x)
 
 def categorical_crossentropy(output: np.ndarray, target: np.ndarray, from_logits: bool = False) -> float:
