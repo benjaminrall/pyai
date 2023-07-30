@@ -1,6 +1,6 @@
 import numpy as np
 from pyai.nn.backend.activations import softmax
-from pyai.nn.backend.utilities import epsilon_clip, normalise_subarrays
+from pyai.backend.utilities import epsilon_clip, normalise_subarrays
 
 def mean_squared_error(output: np.ndarray, target: np.ndarray) -> float:
     """Calculates the mean squared error loss between an output and target."""

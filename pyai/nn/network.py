@@ -6,7 +6,7 @@ import pyai.nn.optimisers as optimisers
 from pyai.backend.progress_bar import ProgressBar
 
 class Network:
-    """`Network` groups a linear stack of layers into a neural network model.
+    """`Network` groups a linear stack of layers into a sequential neural network model.
 
     It provides training and inference features on this model.
     """

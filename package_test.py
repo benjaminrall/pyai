@@ -1,6 +1,6 @@
 from keras.datasets import mnist
 from pyai.nn.layers import Dense, Flatten, MaxPooling2D, Conv2D, Dropout
-from pyai.nn.backend import one_hot_encode
+from pyai.backend import one_hot_encode
 import pyai
 import numpy as np
 

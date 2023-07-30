@@ -1,9 +1,4 @@
 """Neural Networks backend API."""
-from pyai.nn.backend.utilities import epsilon
-from pyai.nn.backend.utilities import epsilon_clip
-from pyai.nn.backend.utilities import normalise_subarrays
-from pyai.nn.backend.utilities import one_hot_encode
-
 from pyai.nn.backend.activations import sigmoid
 from pyai.nn.backend.activations import stable_sigmoid
 from pyai.nn.backend.activations import tanh
