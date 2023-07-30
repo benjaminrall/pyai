@@ -6,7 +6,7 @@ import keras.losses
 import keras.optimizers
 import keras.regularizers
 from keras.backend import one_hot
-from tensorflow import keras
+from tensorflow import nn
 import numpy as np
 
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()

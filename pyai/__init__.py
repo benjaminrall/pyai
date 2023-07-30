@@ -1,10 +1,6 @@
-"""A Python library providing various machine learning models and functions."""
-from pyai.network import Network
+"""A Python library providing various machine learning models and AI related functions."""
 
-from pyai import activations
-from pyai import backend
-from pyai import initialisers
-from pyai import layers
-from pyai import losses
-from pyai import regularisers
-from pyai import optimisers
+from pyai import sl
+from pyai import nn
+from pyai import rl
+from pyai import search

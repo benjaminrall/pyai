@@ -1,7 +1,7 @@
 
 import pyai
-from pyai.backend import one_hot_encode
-from pyai.layers import Conv2D, MaxPooling2D, Flatten, Dropout, Dense
+from pyai.nn.backend import one_hot_encode
+from pyai.nn.layers import Conv2D, MaxPooling2D, Flatten, Dropout, Dense
 from keras.datasets import mnist
 
 def load_data():
@@ -17,7 +17,7 @@ def load_data():
 def train():
     (train_images, train_labels), validation_data = load_data()
 
-    network = pyai.Network([
+    network = pyai.nn.Network([
         Conv2D(32, (3, 3), activation='relu'),
         MaxPooling2D(),
         Conv2D(64, (3, 3), activation='relu'),
