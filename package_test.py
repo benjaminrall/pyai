@@ -23,13 +23,18 @@ network = pyai.Network([
     Dense(10, 'softmax')
 ])
 
-network.build((28, 28, 1))
-network.summary()
+network = pyai.Network([
+    Flatten(),
+    Dense(100, 'relu'),
+    Dense(100, 'sigmoid'),
+    Dense(10, 'softmax')
+])
 
-network.compile(
-    loss='categorical_crossentropy',
-    optimiser='nadam'
-)
+network.compile(optimiser='adam')
 
+network.fit(train_images, train_labels, 100, 1, validation_data=(test_images, test_labels))
 
-network.fit(train_images, train_labels, 100, 15, test_images, test_labels)
+#network.save('dense_network.pyai')
+#network = pyai.Network.load('dense_network.pyai')
+
+network.evaluate(test_images, test_labels, 100)

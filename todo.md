@@ -3,10 +3,7 @@
 ## Core Features
 
 ### Neural Networks
-- Complete network estimate/testing method
-- Add Network saving/loading
 - Add ability to use different strides for Conv2D
-- Redo network summary
 
 ### Other
 - Implement Multinomial Naive Bayes
@@ -29,7 +26,8 @@
 - Ensure consistent docstring usage
 - Ensure consistent naming throughout (using eta for learning rate etc)
 - Ensure consistent interfaces 
-- Ensure consistent typing style 
+- Ensure consistent typing style
+- Ensure consistent inheritance and base/subclasses
 
 ## Advanced Optional Features
 - Automatic differentiation

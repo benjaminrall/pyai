@@ -10,6 +10,8 @@ from numpy.lib.stride_tricks import as_strided
 class Conv2D(Layer):
     """A neural network layer that performs spatial convolution over 2D data."""
 
+    n_variables = 2
+
     def __init__(self, filters: int, kernel_size: tuple[int, int],
                  activation: str | activations.Activation = None,
                  kernel_initialiser: str | initialisers.Initialiser = 'glorot_uniform',
@@ -46,6 +48,8 @@ class Conv2D(Layer):
         # Initialises weights and biases
         self.kernel = self.kernel_initialiser(self.kernel_size + (input_shape[-1], self.filters))
         self.biases = self.bias_initialiser((self.filters,))
+
+        self.variables = [self.kernel, self.biases]
 
         # Calculates trainable parameters for the layer
         self.parameters = np.prod(self.kernel.shape) + np.prod(self.biases.shape)
@@ -116,3 +120,9 @@ class Conv2D(Layer):
         if self.built and self.kernel_regulariser is not None:
             return self.kernel_regulariser(self.kernel)
         return 0
+
+    def set_variables(self, variables: list[np.ndarray]):
+        super().set_variables(variables)
+        self.kernel = variables[0]
+        self.biases = variables[1]
+        self.variables = [self.kernel, self.biases]

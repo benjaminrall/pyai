@@ -10,7 +10,7 @@ class SGD(Optimiser):
         self.eta = eta
         self.nesterov = nesterov
         self.momentum = momentum
-        self.velocity = defaultdict(lambda : defaultdict(lambda : 0))
+        self.velocity = defaultdict(Optimiser.zero_cache)
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:
         for i in range(len(gradients)):

@@ -10,6 +10,8 @@ class Dense(Layer):
     
     `output = activation(dot(input, weights) + bias)`
     """
+
+    n_variables = 2
     
     def __init__(self, units: int, 
                  activation: str | activations.Activation = None,
@@ -43,6 +45,8 @@ class Dense(Layer):
         self.weights = self.weight_initialiser((self.input_shape[-1], self.units))
         self.biases = self.bias_initialiser((self.units,))
         
+        self.variables = [self.weights, self.biases]
+
         self.built = True
         return self.output_shape
     
@@ -90,3 +94,9 @@ class Dense(Layer):
         if self.built and self.weight_regulariser is not None:
             return self.weight_regulariser(self.weights)
         return 0
+    
+    def set_variables(self, variables: list[np.ndarray]):
+        super().set_variables(variables)
+        self.weights = variables[0]
+        self.biases = variables[1]
+        self.variables = [self.weights, self.biases]

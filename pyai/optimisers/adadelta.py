@@ -11,8 +11,8 @@ class Adadelta(Optimiser):
         self.eta = eta
         self.rho = rho
         self.one_sub_rho = 1 - rho
-        self.grad_avg = defaultdict(lambda : defaultdict(lambda : 0))
-        self.delta_avg = defaultdict(lambda : defaultdict(lambda : 0))
+        self.grad_avg = defaultdict(Optimiser.zero_cache)
+        self.delta_avg = defaultdict(Optimiser.zero_cache)
         self.epsilon = epsilon()
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:     

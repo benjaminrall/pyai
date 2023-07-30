@@ -96,6 +96,9 @@ class ProgressBar:
         # Closes the progress bar
         self.close()
 
+    def __len__(self):
+        return len(self.iterable)
+
     def update(self, change=1):
         """Manually updates the progress bar with a specified change."""
         # Does not allow negative or 0 change

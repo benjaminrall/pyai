@@ -15,13 +15,13 @@ class Adamax(Optimiser):
         self.one_sub_beta_1 = 1 - beta_1
 
         # Initialises 1st moment vector
-        self.m = defaultdict(lambda : defaultdict(lambda : 0))
+        self.m = defaultdict(Optimiser.zero_cache)
 
         # Initialise the exponentially weighted infinity norm
-        self.u = defaultdict(lambda : defaultdict(lambda : 0))
+        self.u = defaultdict(Optimiser.zero_cache)
 
         # Initialise timestep counter
-        self.iterations = defaultdict(lambda : 0)
+        self.iterations = Optimiser.zero_cache()
 
         # Stores small constant for numerical stability
         self.epsilon = epsilon()

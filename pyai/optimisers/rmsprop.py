@@ -11,7 +11,7 @@ class RMSprop(Optimiser):
         self.eta = eta
         self.rho = rho
         self.one_sub_rho = 1 - rho
-        self.averages = defaultdict(lambda : defaultdict(lambda : 0))
+        self.averages = defaultdict(Optimiser.zero_cache)
         self.epsilon = epsilon()
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:

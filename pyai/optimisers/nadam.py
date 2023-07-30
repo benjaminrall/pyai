@@ -14,9 +14,9 @@ class Nadam(Optimiser):
         self.beta_2 = beta_2
         self.one_sub_beta_2 = 1 - beta_2
         self.bias_correction = bias_correction
-        self.m = defaultdict(lambda : defaultdict(lambda : 0))
-        self.v = defaultdict(lambda : defaultdict(lambda : 0))
-        self.iterations = defaultdict(lambda : 0)
+        self.m = defaultdict(Optimiser.zero_cache)
+        self.v = defaultdict(Optimiser.zero_cache)
+        self.iterations = Optimiser.zero_cache()
         self.epsilon = epsilon()
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:

@@ -27,8 +27,7 @@ network.compile(
 network.build(train_images.shape)
 
 network.summary()
-network.call()
 
-network.fit(train_images, train_labels, 10, 10)
+network.fit(train_images, train_labels, 10, 1)
 
 network.evaluate(test_images, test_labels, 1)

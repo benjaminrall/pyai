@@ -9,8 +9,15 @@ class Adagrad(Optimiser):
 
     def __init__(self, eta: float = 0.01, initial_accumulator_value = 0.1) -> None:
         self.eta = eta
-        self.accumulators = defaultdict(lambda : defaultdict(lambda : initial_accumulator_value))
+        self.initial_accumulator_value = initial_accumulator_value
+        self.accumulators = defaultdict(self.accumulator_cache)
         self.epsilon = epsilon()
+
+    def get_accumulator_value(self):
+        return self.initial_accumulator_value
+
+    def accumulator_cache(self):
+        return defaultdict(self.get_accumulator_value)
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:
         layer_accumulator = self.accumulators[layer]
