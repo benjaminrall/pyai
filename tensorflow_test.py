@@ -1,5 +1,5 @@
 from keras.datasets import mnist
-from keras.layers import Dense
+from keras.layers import Dense, MaxPooling2D, Conv2D, Flatten, Dropout
 from keras.backend import one_hot
 from tensorflow import keras
 import numpy as np
@@ -24,8 +24,11 @@ network.compile(
     metrics=['accuracy']
 )
 
-network.fit(
-    train_images, train_labels, 10, 10
-)
+network.build(train_images.shape)
+
+network.summary()
+network.call()
+
+network.fit(train_images, train_labels, 10, 10)
 
 network.evaluate(test_images, test_labels, 1)

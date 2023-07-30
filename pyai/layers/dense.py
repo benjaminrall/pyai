@@ -42,16 +42,15 @@ class Dense(Layer):
         # Initialises weights and biases
         self.weights = self.weight_initialiser((self.input_shape[-1], self.units))
         self.biases = self.bias_initialiser((self.units,))
-
-        self.variables = [self.weights, self.biases]
         
         self.built = True
         return self.output_shape
+    
 
     def forward(self, input: np.ndarray) -> np.ndarray:
-        # Builds the layer if it has not yet been built.
+        # Builds the layer if it has not yet been built
         if not self.built:
-            self.build(input.shape)
+            self.build(input.shape[1:])
 
         # Stores the input and calculates z output
         self.input = input
@@ -71,8 +70,8 @@ class Dense(Layer):
         delta = np.dot(derivatives, self.weights.T)
 
         # Calculates gradients for the weights and biases
-        nabla_w: np.ndarray = np.dot(self.input.T, derivatives)
-        nabla_b: np.ndarray = np.sum(derivatives, axis=0)
+        nabla_w = np.dot(self.input.T, derivatives)
+        nabla_b = np.sum(derivatives, axis=0)
 
         # Applies regularisation to the weight gradients
         if self.weight_regulariser is not None:
@@ -91,7 +90,3 @@ class Dense(Layer):
         if self.built and self.weight_regulariser is not None:
             return self.weight_regulariser(self.weights)
         return 0
-    
-    def apply_gradients(self, gradients: list[np.ndarray]) -> None:
-        self.weights -= gradients[0]
-        self.biases -= gradients[1]

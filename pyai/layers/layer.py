@@ -11,11 +11,11 @@ class Layer(ABC):
         # Sets default values for shared attributes
         self.input_shape: tuple = None
         self.output_shape: tuple = None
-        self.parameters: int = None
+        self.parameters: int = 0
         self.variables: list[np.ndarray] = []
         self.built: bool = False
 
-    def __call__(self, input: np.ndarray) -> np.ndarray:
+    def __call__(self, input: np.ndarray, **kwargs) -> np.ndarray:
         return self.forward(input)
 
     @abstractmethod

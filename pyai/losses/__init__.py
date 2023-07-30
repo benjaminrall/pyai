@@ -17,4 +17,4 @@ def get(identifier: str | Loss, allow_none: bool = False) -> Loss:
         'mean_squared_error': MeanSquaredError(),
         'binary_crossentropy': BinaryCrossentropy(),
         'categorical_crossentropy': CategoricalCrossentropy()
-    }.get(str(identifier).lower(), None if allow_none else MeanSquaredError())
+    }.get(str(identifier).lower(), None if allow_none else CategoricalCrossentropy())

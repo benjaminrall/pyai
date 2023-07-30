@@ -27,4 +27,4 @@ def get(identifier: str | Optimiser, allow_none: bool = False) -> Optimiser:
         'adam': Adam(),
         'adamw': AdamW(),
         'nadam': Nadam()
-    }.get(str(identifier).lower(), None if allow_none else SGD())
+    }.get(str(identifier).lower(), None if allow_none else RMSprop())

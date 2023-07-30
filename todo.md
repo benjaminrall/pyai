@@ -4,12 +4,9 @@
 
 ### Neural Networks
 - Complete network estimate/testing method
-- Implement the following layers:
-    - MaxPooling
-    - AveragePooling
-    - Conv2D
-    - Flatten
-    - Dropout
+- Add Network saving/loading
+- Add ability to use different strides for Conv2D
+- Redo network summary
 
 ### Other
 - Implement Multinomial Naive Bayes
