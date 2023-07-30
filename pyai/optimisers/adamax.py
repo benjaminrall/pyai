@@ -5,6 +5,8 @@ from collections import defaultdict
 import numpy as np
 
 class Adamax(Optimiser):
+    """Optimiser that implements the Adamax algorithm."""
+
     name = 'adamax'
 
     def __init__(self, eta: float = 0.001, beta_1: float = 0.9, beta_2: float = 0.999) -> None:
@@ -34,7 +36,7 @@ class Adamax(Optimiser):
         layer_M = self.m[layer]
         layer_U = self.u[layer]
 
-        # Updates the gradients using Adamax optimisation
+        # Loops through the gradients for each variable in the layer
         for i in range(len(gradients)):
             # Calculates new M and U values
             layer_M[i] = self.beta_1 * layer_M[i] + self.one_sub_beta_1 * gradients[i]

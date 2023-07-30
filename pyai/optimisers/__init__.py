@@ -3,11 +3,11 @@
 from pyai.optimisers.optimiser import Optimiser
 from pyai.optimisers.sgd import SGD 
 from pyai.optimisers.rmsprop import RMSprop
-from pyai.optimisers.adam import Adam
-from pyai.optimisers.adamw import AdamW
 from pyai.optimisers.adadelta import Adadelta
 from pyai.optimisers.adagrad import Adagrad
 from pyai.optimisers.adamax import Adamax
+from pyai.optimisers.adam import Adam
+from pyai.optimisers.adamw import AdamW
 from pyai.optimisers.nadam import Nadam
 
 def get(identifier: str | Optimiser, allow_none: bool = False) -> Optimiser:

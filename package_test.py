@@ -30,9 +30,9 @@ network = pyai.Network([
     Dense(10, 'softmax')
 ])
 
-network.compile(optimiser='adam')
+network.compile(optimiser=pyai.optimisers.SGD(0.01))
 
-network.fit(train_images, train_labels, 100, 1, validation_data=(test_images, test_labels))
+network.fit(train_images, train_labels, 10, 1, validation_data=(test_images, test_labels))
 
 #network.save('dense_network.pyai')
 #network = pyai.Network.load('dense_network.pyai')
