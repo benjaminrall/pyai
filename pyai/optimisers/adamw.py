@@ -1,8 +1,8 @@
+import numpy as np
+from collections import defaultdict
 from pyai.optimisers.optimiser import Optimiser
 from pyai.layers.layer import Layer
 from pyai.backend.utilities import epsilon
-from collections import defaultdict
-import numpy as np
 
 class AdamW(Optimiser):
     """Optimiser that implements the AdamW algorithm."""

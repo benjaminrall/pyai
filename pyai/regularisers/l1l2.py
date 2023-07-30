@@ -1,8 +1,10 @@
+import numpy as np
 from pyai.regularisers.regulariser import Regulariser
 from pyai.backend.regularisers import l1, l2
-import numpy as np
 
 class L1L2(Regulariser):
+    """A regulariser that applies both L1 and L2 regularisation penalties."""
+
     name = 'l1l2'
 
     def __init__(self, l1_factor: float = 0.01, l2_factor: float = 0.01) -> None:

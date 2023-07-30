@@ -1,7 +1,9 @@
-from abc import ABC, abstractmethod
 import numpy as np
+from abc import ABC, abstractmethod
 
 class Regulariser(ABC):
+    """The class from which all regularisers inherit."""
+    
     name: str
 
     def __call__(self, x: np.ndarray) -> float:
@@ -9,8 +11,8 @@ class Regulariser(ABC):
     
     @abstractmethod
     def call(self, x: np.ndarray) -> float:
-        pass
+        """Calculates the regularisation penalty for a given set of inputs."""
 
     @abstractmethod
     def derivative(self, x: np.ndarray) -> np.ndarray:
-        pass
+        """Calculates the derivative of the regulariser for a given set of inputs."""

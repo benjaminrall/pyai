@@ -1,7 +1,7 @@
-from abc import ABC, abstractmethod
-from pyai.layers.layer import Layer
-from collections import defaultdict
 import numpy as np
+from collections import defaultdict
+from pyai.layers.layer import Layer
+from abc import ABC, abstractmethod
 
 class Optimiser(ABC):
     """The class from which all optimisers inherit."""
