@@ -1,8 +1,10 @@
+import numpy as np
 from pyai.losses.loss import Loss
 from pyai.backend.losses import binary_crossentropy
-import numpy as np
 
 class BinaryCrossentropy(Loss):
+    """Computes the binary crossentropy between the outputs and targets."""
+
     name = 'binary_crossentropy'
 
     def __init__(self, from_logits: bool = False) -> None:

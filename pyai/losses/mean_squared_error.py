@@ -1,8 +1,11 @@
-from pyai.losses.loss import Loss
-from pyai.backend.losses import mean_squared_error
 import numpy as np
 
+from pyai.losses.loss import Loss
+from pyai.backend.losses import mean_squared_error
+
 class MeanSquaredError(Loss):
+    """Computes the mean of squares of errors between outputs and targets."""
+
     name = 'mean_squared_error'
 
     def call(self, output: np.ndarray, target: np.ndarray) -> float:

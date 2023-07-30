@@ -1,8 +1,10 @@
+import numpy as np
 from pyai.losses.loss import Loss
 from pyai.backend.losses import categorical_crossentropy, convert_logits
-import numpy as np
 
 class CategoricalCrossentropy(Loss):
+    """Computes the crossentropy loss between the outputs and targets."""
+
     name = 'categorical_crossentropy'
 
     def __init__(self, from_logits: bool = False) -> None:

@@ -1,7 +1,9 @@
-from abc import ABC, abstractmethod
 import numpy as np
+from abc import ABC, abstractmethod
 
 class Loss(ABC):
+    """The class from which all loss functions inherit."""
+
     name: str
 
     def __call__(self, output: np.ndarray, target: np.ndarray) -> float:
@@ -9,8 +11,8 @@ class Loss(ABC):
 
     @abstractmethod
     def call(self, output: np.ndarray, target: np.ndarray) -> float:
-        pass
+        """Calculates the result of the loss function for a given output and target."""
 
     @abstractmethod
     def derivative(self, output: np.ndarray, target: np.ndarray) -> np.ndarray:
-        pass
+        """Calculates the derivative of the loss function for a given output and target."""
