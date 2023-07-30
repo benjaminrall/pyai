@@ -1,8 +1,7 @@
 from keras.datasets import mnist
-from keras.layers import Dense, MaxPooling2D, Conv2D, Flatten, Dropout
+from keras.layers import Dense, AveragePooling2D, MaxPooling2D, Conv2D, Flatten, Dropout
 import keras.activations
 import keras.backend
-import keras.layers
 import keras.losses
 import keras.optimizers
 import keras.regularizers

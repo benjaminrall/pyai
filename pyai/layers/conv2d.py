@@ -1,10 +1,9 @@
-from pyai.layers.layer import Layer
-from pyai.optimisers.optimiser import Optimiser
+import numpy as np
 import pyai.activations as activations
 import pyai.initialisers as initialisers
 import pyai.regularisers as regularisers
-import numpy as np
-from scipy.signal import convolve
+from pyai.layers.layer import Layer
+from pyai.optimisers.optimiser import Optimiser
 from numpy.lib.stride_tricks import as_strided
 
 class Conv2D(Layer):
@@ -17,7 +16,7 @@ class Conv2D(Layer):
                  kernel_initialiser: str | initialisers.Initialiser = 'glorot_uniform',
                  bias_initialiser: str | initialisers.Initialiser = 'zeros',
                  kernel_regulariser: str | regularisers.Regulariser = None
-                 ):
+                 ) -> None:
         super().__init__()
         # Stores filters and kernel size
         self.filters = filters
@@ -57,7 +56,7 @@ class Conv2D(Layer):
         self.built = True
         return self.output_shape
 
-    def forward(self, input: np.ndarray) -> np.ndarray:
+    def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
         # Reshapes inputs that don't have channels to have a single channel
         if len(input.shape) == 3:
              input = np.reshape(input, input.shape[:3] + (1,))
@@ -121,7 +120,7 @@ class Conv2D(Layer):
             return self.kernel_regulariser(self.kernel)
         return 0
 
-    def set_variables(self, variables: list[np.ndarray]):
+    def set_variables(self, variables: list[np.ndarray]) -> None:
         super().set_variables(variables)
         self.kernel = variables[0]
         self.biases = variables[1]

@@ -1,11 +1,11 @@
-from pyai.layers.layer import Layer
-import pyai.activations as activations
 import numpy as np
+import pyai.activations as activations
+from pyai.layers.layer import Layer
 
 class Activation(Layer):
     """A neural network layer that applies an activation function to its inputs."""
 
-    def __init__(self, activation: str = ""):
+    def __init__(self, activation: str | activations.Activation) -> None:
         super().__init__()
         self.activation = activations.get(activation)
 
@@ -15,11 +15,12 @@ class Activation(Layer):
         self.built = True
         return input_shape
 
-    def forward(self, input: np.ndarray) -> np.ndarray:
+    def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
         # Builds the layer if it has not yet been built.
         if not self.built:
             self.build(input.shape[1:])
-            
+        
+        # Returns the input with the activation function applied to it
         self.input = input
         return self.activation(input) 
     

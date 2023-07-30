@@ -1,14 +1,15 @@
-from pyai.layers.layer import Layer
-from pyai.optimisers.optimiser import Optimiser
+import numpy as np
 import pyai.activations as activations
 import pyai.initialisers as initialisers
 import pyai.regularisers as regularisers
-import numpy as np
+from pyai.layers.layer import Layer
+from pyai.optimisers.optimiser import Optimiser
+
 
 class Dense(Layer):
     """Regular densely-connected neural network layer.
     
-    `output = activation(dot(input, weights) + bias)`
+    `output = activation(dot(input, weights) + bias)`.
     """
 
     n_variables = 2
@@ -20,8 +21,7 @@ class Dense(Layer):
                  weight_regulariser: str | regularisers.Regulariser = None
                  ) -> None:
         super().__init__()
-        # Ensures that units is an integer
-        self.units = int(units) if not isinstance(units, int) else units
+        self.units = units
 
         # Gets activation function object
         self.activation = activations.get(activation, True)
@@ -50,8 +50,7 @@ class Dense(Layer):
         self.built = True
         return self.output_shape
     
-
-    def forward(self, input: np.ndarray) -> np.ndarray:
+    def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
         # Builds the layer if it has not yet been built
         if not self.built:
             self.build(input.shape[1:])

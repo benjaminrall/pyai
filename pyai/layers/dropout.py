@@ -1,6 +1,5 @@
-from pyai.layers.layer import Layer
-import pyai.activations as activations
 import numpy as np
+from pyai.layers.layer import Layer
 
 class Dropout(Layer):
     """A neural network layer that applies dropout to the inputs."""
@@ -11,18 +10,13 @@ class Dropout(Layer):
         self.inverse_rate = 1 - self.rate
         self.scale = 1 / self.inverse_rate
 
-    def __call__(self, input: np.ndarray, **kwargs) -> np.ndarray:
-        if 'training' in kwargs:
-            return self.forward(input, kwargs['training'])
-        return self.forward(input)
-
     def build(self, input_shape: tuple) -> tuple:
         self.input_shape, self.output_shape = input_shape, input_shape
 
         self.built = True
         return input_shape
 
-    def forward(self, input: np.ndarray, training: bool = False) -> np.ndarray:
+    def call(self, input: np.ndarray, training: bool = False, **kwargs) -> np.ndarray:
         # Builds the layer if it has not yet been built.
         if not self.built:
             self.build(input.shape[1:])

@@ -1,8 +1,9 @@
-from abc import ABC, abstractmethod
 import numpy as np
+import pyai
+from abc import ABC, abstractmethod
 
 class Layer(ABC):
-    """Abstract base class for all layers in neural networks."""
+    """The class from which all layers inherit."""
 
     n_variables = 0
 
@@ -16,19 +17,19 @@ class Layer(ABC):
         self.built: bool = False
 
     def __call__(self, input: np.ndarray, **kwargs) -> np.ndarray:
-        return self.forward(input)
+        return self.call(input, **kwargs)
 
     @abstractmethod
     def build(self, input_shape: tuple) -> tuple:
-        """Initialises the layer's variables."""
+        """Creates and initialises the variables of the layer."""
 
     @abstractmethod
-    def forward(self, input: np.ndarray) -> np.ndarray:
-        """Passes an input forward through the layer."""
+    def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
+        """Calculates the output of a layer for a given input."""
 
     @abstractmethod
-    def backward(self, derivatives: np.ndarray, optimiser) -> tuple[np.ndarray, np.ndarray]:
-        """Performs a backwards pass through the network and applies parameter changes."""
+    def backward(self, derivatives: np.ndarray, optimiser: 'pyai.optimisers.Optimiser') -> np.ndarray:
+        """Performs a backwards pass through the network and applies gradient updates."""
 
     def penalty(self) -> float:
         """Returns the regularisation penalty of the layer."""
@@ -40,7 +41,7 @@ class Layer(ABC):
             raise RuntimeError("Cannot get the variables from a layer that hasn't yet been built.")
         return self.variables
     
-    def set_variables(self, variables: list[np.ndarray]):
+    def set_variables(self, variables: list[np.ndarray]) -> None:
         """Sets the variables of the layer from a list of numpy arrays."""
         if not self.built:
             raise RuntimeError("Variables cannot be set for a layer that hasn't yet been built.")

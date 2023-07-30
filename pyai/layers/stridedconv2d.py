@@ -46,7 +46,7 @@ class StridedConv2D(Layer):
         self.built = True
         return self.output_shape
 
-    def forward(self, input: np.ndarray) -> np.ndarray:
+    def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
         # Builds the layer if it has not yet been built
         if len(input.shape) == 3:
              input = np.reshape(input, input.shape[:3] + (1,))

@@ -3,6 +3,7 @@
 ## Core Features
 
 ### Neural Networks
+- Change inputs and build method to be more similar to keras - (None) as first input, representing ability to have different batch sizes
 - Add ability to use different strides for Conv2D
 
 ### Other

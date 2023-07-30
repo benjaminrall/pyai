@@ -1,11 +1,10 @@
-from pyai.layers.layer import Layer
-import pyai.activations as activations
 import numpy as np
+from pyai.layers.layer import Layer
 
 class Flatten(Layer):
-    """A neural network layer that flattens inputs """
+    """A neural network layer that flattens the input."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def build(self, input_shape: tuple) -> tuple:
@@ -14,10 +13,11 @@ class Flatten(Layer):
         self.built = True
         return self.output_shape
 
-    def forward(self, input: np.ndarray) -> np.ndarray:
+    def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
         # Builds the layer if it has not yet been built.
         if not self.built:
             self.build(input.shape[1:])
+
         return input.reshape((input.shape[0], -1))
     
     def backward(self, derivatives: np.ndarray, _) -> np.ndarray:
