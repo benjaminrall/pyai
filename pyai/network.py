@@ -8,7 +8,7 @@ from pyai.backend.progress_bar import ProgressBar
 class Network:
     """`Network` groups a linear stack of layers into a neural network model.
 
-    `Network` provides training and inference features on this model.
+    It provides training and inference features on this model.
     """
 
     def __init__(self, layers: list[Layer] = []) -> None:
