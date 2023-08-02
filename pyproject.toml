@@ -1,0 +1,22 @@
+[project]
+name = "pyai"
+version = "0.1.0"
+description = "An artificial intelligence library coded in pure Python and Numpy."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {file = "LICENSE.txt"}
+
+authors = [
+    { name="Benjamin Rall", email="benr2508@aol.com" },
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/benjaminrall/pyai"
+"Wiki" = "https://github.com/benjaminrall/pyai/wiki"
