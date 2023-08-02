@@ -4,6 +4,7 @@ import pyai.nn.initialisers as initialisers
 import pyai.nn.regularisers as regularisers
 from pyai.nn.layers.layer import Layer
 from pyai.nn.optimisers.optimiser import Optimiser
+from pyai.backend import dilate
 from numpy.lib.stride_tricks import as_strided
 
 class Conv2D(Layer):
@@ -40,8 +41,8 @@ class Conv2D(Layer):
         self.input_shape = input_shape
 
         # Calculates output rows and cols
-        output_rows = input_shape[0] - self.kernel_size[0] + 1
-        output_cols = input_shape[1] - self.kernel_size[1] + 1
+        output_rows = (input_shape[0] - self.kernel_size[0]) // self.strides[0] + 1
+        output_cols = (input_shape[1] - self.kernel_size[1]) // self.strides[1] + 1
         
         # Stores the output shape and the shape of the input view for convolution
         self.output_shape = (output_rows, output_cols, self.filters)
@@ -72,9 +73,11 @@ class Conv2D(Layer):
         self.input = input
 
         # Creates a view of the input containing the sub-matrices for convolution
+        s0, s1 = input.strides[1:3]
+        kernel_strides = (self.strides[0] * s0, self.strides[1] * s1, s0, s1)
         self.input_view = as_strided(
             input, input.shape[:1] + self.view_shape, 
-            input.strides[:3] + input.strides[1:]
+            input.strides[:1] + kernel_strides + input.strides[3:]
         )
 
         # Calculates the valid convolution of the weights over the inputs and adds the biases
@@ -89,36 +92,28 @@ class Conv2D(Layer):
         # Calculates derivatives for the activation function if one was applied
         if self.activation is not None:
             derivatives = self.activation.derivative(self.z) * derivatives
+
+        # Dilates the matrix to account for varying stride values
+        dilated_derivatives = dilate(derivatives, self.strides)
             
-        if self.strides == (1, 1):
-            # Pads the input derivative in order to calculate delta
-            py, px = self.kernel_size[0] - 1, self.kernel_size[1] - 1
-            pd = np.pad(derivatives, ((0, 0), (py, py), (px, px), (0, 0)))
+        # Pads the input derivative in order to calculate delta
+        py, px = self.kernel_size[0] - 1, self.kernel_size[1] - 1
+        pd = np.pad(dilated_derivatives, ((0, 0), (py, py), (px, px), (0, 0)))
 
-            # Creates a view of the padded derivative containing the sub-matrices for convolution
-            derivative_view_shape = self.input.shape[:3] + self.kernel_size + derivatives.shape[3:]
-            derivative_view = as_strided(pd, derivative_view_shape, pd.strides[:3] + pd.strides[1:])
+        # Creates a view of the padded derivative containing the sub-matrices for convolution
+        output_shape = (pd.shape[0], pd.shape[1] - self.kernel_size[0] + 1, pd.shape[2] - self.kernel_size[1] + 1)
+        derivative_view_shape = output_shape + self.kernel_size + pd.shape[3:]
+        derivative_view = as_strided(pd, derivative_view_shape, pd.strides[:3] + pd.strides[1:])
 
-            # Calculates the full convolution of the flipped weights over the input derivatives
-            delta = np.tensordot(derivative_view, self.kernels[::-1, ::-1], axes=((3, 4, 5), (0, 1, 3)))
-        else:
-            # Creates a view to contain the weights for calculating delta
-            kernel_view = np.zeros(self.input_view.shape[:-1])
-            delta = np.zeros(derivatives.shape[:1] + self.input_shape)
+        # Calculates the full convolution of the flipped weights over the input derivatives
+        delta = np.tensordot(derivative_view, self.kernels[::-1, ::-1], axes=((3, 4, 5), (0, 1, 3)))
 
-            # Loops through all kernels and calculates the appropriate derivatives relating to them
-            for kernel in range(self.kernels):
-                for channel in range(self.kernels.shape[1]):
-                    kernel_view[:, :, :] = self.kernels[kernel, channel]
-                    scaled_kernel = derivatives[:, :, :, channel, None, None] * kernel_view
-                    rows, cols = scaled_kernel.shape[1:3]
-                    for row in range(rows):
-                        for col in range(cols):
-                            my, mx = row * self.strides[0], col * self.strides[1]
-                            ny, nx = my + self.kernel_size[0], mx + self.kernel_size[1]
-                            delta[:, my:ny, mx:nx, channel] += scaled_kernel[:, row, col]
-                
-        
+        # Ensures output is scaled to match the input shape
+        if delta.shape != self.input.shape:
+            full_delta = np.zeros(self.input.shape)
+            full_delta[:, :delta.shape[1], :delta.shape[2]] = delta
+            delta = full_delta
+
         # Calculates gradients for the kernels and biases
         nabla_k = np.tensordot(self.input_view, derivatives, axes=((0, 1, 2), (0, 1, 2)))
         nabla_b = np.sum(derivatives, axis=(0, 1, 2))

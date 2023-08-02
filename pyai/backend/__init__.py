@@ -6,3 +6,4 @@ from pyai.backend.utilities import epsilon
 from pyai.backend.utilities import epsilon_clip
 from pyai.backend.utilities import normalise_subarrays
 from pyai.backend.utilities import one_hot_encode
+from pyai.backend.utilities import dilate

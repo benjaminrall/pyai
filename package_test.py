@@ -14,15 +14,18 @@ test_labels = one_hot_encode(test_labels, 10)
 np.random.seed(0)
 
 network = pyai.nn.Network([
+    Conv2D(8, (2, 2), activation='relu'),
+    Conv2D(8, (4, 4), (3, 3), 'relu'),
     Flatten(),
-    Dense(100, 'relu'),
-    Dense(100, 'sigmoid'),
+    Dense(10, 'relu'),
     Dense(10, 'softmax')
 ])
+network.build((28,28,1))
+network.summary()
 
-network.compile(optimiser=pyai.nn.optimisers.SGD(0.01))
+network.compile(optimiser='adam')
 
-network.fit(train_images, train_labels, 10, 1, validation_data=(test_images, test_labels))
+network.fit(train_images, train_labels, 100, 10, validation_data=(test_images, test_labels))
 
 #network.save('dense_network.pyai')
 #network = pyai.Network.load('dense_network.pyai')

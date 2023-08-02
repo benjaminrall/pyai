@@ -44,7 +44,7 @@ class Network:
         self.layers.append(layer)
         
     def pop(self) -> None:
-        """Removes the last layer in the network.
+        """Removes the last layer in the network.s
 
         Raises:
             IndexError: If there are no layers in the model.
@@ -272,7 +272,6 @@ class Network:
         Raises:
             ValueError: If `summary` is called before the network is built.
         """
-
         # Ensures that the network is built before printing a summary
         if not self.built:
             raise ValueError(

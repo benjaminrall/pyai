@@ -1,6 +1,6 @@
 
 import pyai
-from pyai.nn.backend import one_hot_encode
+from pyai.backend import one_hot_encode
 from pyai.nn.layers import Conv2D, MaxPooling2D, Flatten, Dropout, Dense
 from keras.datasets import mnist
 
@@ -31,10 +31,13 @@ def train():
 
     network.fit(train_images, train_labels, 100, 15, validation_data=validation_data)
 
-    network.save('mnist_network.pyai')
+    #network.save('mnist_network.pyai')
 
-(train_images, train_labels), (test_images, test_labels) = load_data()
+def test():
+    (train_images, train_labels), (test_images, test_labels) = load_data()
 
-network = pyai.Network.load('mnist_network.pyai')
+    network = pyai.nn.Network.load('mnist_network.pyai')
 
-network.evaluate(test_images, test_labels, 100)
+    network.evaluate(test_images, test_labels, 100)
+
+train()
