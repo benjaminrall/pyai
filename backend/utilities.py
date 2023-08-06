@@ -20,6 +20,16 @@ def normalise_subarrays(x: np.ndarray) -> np.ndarray:
 def one_hot_encode(x: np.ndarray, classes: int = -1) -> np.ndarray:
     """Performs one-hot encoding on an input array with a given number of classes.
 
+    Args:
+    ----
+        x (np.ndarray): Input to be encoded.
+        classes (int): The number of classes. If `classes` is -1 or is invalid, then
+        it is automatically recalculated as `max(x) + 1`.
+
+    Returns
+    -------
+        np.ndarray: The result of performing one-hot encoding on the input.
+
     If `classes` is invalid, then it is automatically recalculated as `max(x) + 1`.`
     """
     classes = max(np.max(x) + 1, classes)
@@ -28,17 +38,17 @@ def one_hot_encode(x: np.ndarray, classes: int = -1) -> np.ndarray:
     return one_hot
 
 def dilate(x: np.ndarray, dilation_factor: tuple) -> np.ndarray:
-    """Dilates a tensor by inserting gaps between its rows and columns.
+    """Dilates an array by inserting gaps between its rows and columns.
 
     Args:
     ----
-        x (np.ndarray): The input tensor with shape (batches, rows, cols, ...).
-        dilation_factor (tuple): The factors by which to dilate the tensor in
+        x (np.ndarray): The input array with shape (batches, rows, cols, ...).
+        dilation_factor (tuple): The factors by which to dilate the array in
         each direction.
 
     Returns
     -------
-        np.ndarray: The dilated tensor.
+        np.ndarray: The dilated array.
     """
     # Case in which no dilation takes place
     if dilation_factor == (1, 1):

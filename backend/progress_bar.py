@@ -27,11 +27,11 @@ class ProgressBar:
             iterable (Iterable): The iterable to wrap with the progress bar.
             minimum_interval (float): The minimum interval in seconds between progress bar updates.
             bars (int): The amount of bar characters used in the progress bar.
-            newline_close (bool): Whether to close the progress bar with a newline.
+            newline_close (bool): Whether to close the progress bar with a newline character.
             estimate_interval (float): The interval in seconds between estimate updates.
             animation_interval (float): The interval in seconds between animation updates.
             animation (list[str]): The animation to be displayed. Must be a list containing
-            an arbitrary number of characters to be looped through.
+            an arbitrary number of strings to be looped through.
         """
         # Stores iterable to be decorated and finds length of it
         self.iterable = iterable
@@ -122,7 +122,7 @@ class ProgressBar:
         return len(self.iterable)
 
     def update(self, change=1):
-        """Manually updates the progress bar with a specified change."""
+        """Manually updates the progress bar with a specified change amount."""
         # Does not allow negative or 0 change
         if change <= 0:
             return
