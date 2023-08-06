@@ -1,6 +1,9 @@
-import numpy as np
-import pyai
 from abc import ABC, abstractmethod
+
+import numpy as np
+
+import pyai
+
 
 class Layer(ABC):
     """The class from which all layers inherit."""
@@ -34,13 +37,13 @@ class Layer(ABC):
     def penalty(self) -> float:
         """Returns the regularisation penalty of the layer."""
         return 0
-    
+
     def get_variables(self) -> list[np.ndarray]:
         """Retrieves the variables of the layer as a list of numpy arrays."""
         if not self.built:
             raise RuntimeError("Cannot get the variables from a layer that hasn't yet been built.")
         return self.variables
-    
+
     def set_variables(self, variables: list[np.ndarray]) -> None:
         """Sets the variables of the layer from a list of numpy arrays."""
         if not self.built:

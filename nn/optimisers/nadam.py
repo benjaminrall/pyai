@@ -1,8 +1,11 @@
-import numpy as np
 from collections import defaultdict
-from pyai.nn.optimisers.optimiser import Optimiser
-from pyai.nn.layers.layer import Layer
+
+import numpy as np
+
 from pyai.backend.utilities import epsilon
+from pyai.nn.layers.layer import Layer
+from pyai.nn.optimisers.optimiser import Optimiser
+
 
 class Nadam(Optimiser):
     """Optimiser that implements the Nadam algorithm."""
@@ -41,5 +44,5 @@ class Nadam(Optimiser):
 
             # Applies the adapted learning rate to the gradients
             gradients[i] = -self.eta * corrected_M / (np.sqrt(corrected_V) + self.epsilon)
-        
+
         return gradients

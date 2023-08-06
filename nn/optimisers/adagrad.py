@@ -1,8 +1,11 @@
-import numpy as np
 from collections import defaultdict
-from pyai.nn.optimisers.optimiser import Optimiser
-from pyai.nn.layers.layer import Layer
+
+import numpy as np
+
 from pyai.backend.utilities import epsilon
+from pyai.nn.layers.layer import Layer
+from pyai.nn.optimisers.optimiser import Optimiser
+
 
 class Adagrad(Optimiser):
     """Optimiser that implements the Adagrad algorithm."""
@@ -29,7 +32,7 @@ class Adagrad(Optimiser):
         for i in range(len(gradients)):
             # Adds the square of the current gradients to the accumulator
             layer_accumulator[i] = layer_accumulator[i] + np.square(gradients[i])
-            
+
             # Uses the accumulator value to adjust the learning rate for each parameter
             gradients[i] = -self.eta / np.sqrt(self.epsilon + layer_accumulator[i]) * gradients[i]
 

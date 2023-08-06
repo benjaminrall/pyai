@@ -1,8 +1,11 @@
-import numpy as np
 from collections import defaultdict
-from pyai.nn.optimisers.optimiser import Optimiser
-from pyai.nn.layers.layer import Layer
+
+import numpy as np
+
 from pyai.backend.utilities import epsilon
+from pyai.nn.layers.layer import Layer
+from pyai.nn.optimisers.optimiser import Optimiser
+
 
 class RMSprop(Optimiser):
     """Optimiser that implements the RMSProp algorithm."""
@@ -22,8 +25,8 @@ class RMSprop(Optimiser):
         for i in range(len(gradients)):
             # Maintains a moving discounted average of the square of gradients
             layer_averages[i] = self.rho * layer_averages[i] + self.one_sub_rho * np.square(gradients[i])
-            
+
             # Divides the gradient by the root of this average
             gradients[i] = -self.eta * gradients[i] / (np.sqrt(layer_averages[i]) + self.epsilon)
-        
+
         return gradients

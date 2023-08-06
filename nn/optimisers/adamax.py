@@ -1,8 +1,11 @@
-import numpy as np
 from collections import defaultdict
-from pyai.nn.optimisers.optimiser import Optimiser
-from pyai.nn.layers.layer import Layer
+
+import numpy as np
+
 from pyai.backend.utilities import epsilon
+from pyai.nn.layers.layer import Layer
+from pyai.nn.optimisers.optimiser import Optimiser
+
 
 class Adamax(Optimiser):
     """Optimiser that implements the Adamax algorithm."""

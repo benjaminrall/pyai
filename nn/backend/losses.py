@@ -1,6 +1,8 @@
 import numpy as np
-from pyai.nn.backend.activations import softmax
+
 from pyai.backend.utilities import epsilon_clip, normalise_subarrays
+from pyai.nn.backend.activations import softmax
+
 
 def normalise_output(output: np.ndarray, from_logits: bool) -> np.ndarray:
     """Normalises a given output array to be used in a loss function."""
@@ -16,7 +18,7 @@ def binary_crossentropy(output: np.ndarray, target: np.ndarray, from_logits: boo
     if from_logits:
         log_result = np.log(1 + np.exp(-np.abs(output)))
         return np.mean(np.maximum(output, 0) - output * target + log_result)
-    
+
     # Calculates binary cross-entropy from probability distribution
     output = epsilon_clip(normalise_subarrays(output))
     return -np.mean(target * np.log(output) + (1 - target) * np.log(1 - output))

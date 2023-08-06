@@ -1,5 +1,7 @@
-import numpy as np
 from abc import ABC, abstractmethod
+
+import numpy as np
+
 
 class Initialiser(ABC):
     """The class from which all initialisers inherit."""

@@ -1,5 +1,7 @@
 import numpy as np
+
 from pyai.nn.layers.layer import Layer
+
 
 class Flatten(Layer):
     """A neural network layer that flattens the input."""
@@ -19,6 +21,6 @@ class Flatten(Layer):
             self.build(input.shape[1:])
 
         return input.reshape((input.shape[0], -1))
-    
+
     def backward(self, derivatives: np.ndarray, _) -> np.ndarray:
         return derivatives.reshape(derivatives.shape[:1] + self.input_shape)

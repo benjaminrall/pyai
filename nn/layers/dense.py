@@ -1,4 +1,5 @@
 import numpy as np
+
 import pyai.nn.activations as activations
 import pyai.nn.initialisers as initialisers
 import pyai.nn.regularisers as regularisers
@@ -8,13 +9,13 @@ from pyai.nn.optimisers.optimiser import Optimiser
 
 class Dense(Layer):
     """Regular densely-connected neural network layer.
-    
+
     `output = activation(dot(input, weights) + bias)`.
     """
 
     n_variables = 2
-    
-    def __init__(self, units: int, 
+
+    def __init__(self, units: int,
                  activation: str | activations.Activation = None,
                  weight_initialiser: str | initialisers.Initialiser = "glorot_uniform",
                  bias_initialiser: str | initialisers.Initialiser = "zeros",
@@ -37,19 +38,19 @@ class Dense(Layer):
         # Sets input and output shapes and counts parameters
         self.input_shape = input_shape
         self.output_shape = (input_shape[:-1]) + (self.units,)
-        
+
         # Calculates trainable parameters for the layer
         self.parameters = self.units * (input_shape[-1] + 1)
 
         # Initialises weights and biases
         self.weights = self.weight_initialiser((self.input_shape[-1], self.units))
         self.biases = self.bias_initialiser((self.units,))
-        
+
         self.variables = [self.weights, self.biases]
 
         self.built = True
         return self.output_shape
-    
+
     def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
         # Builds the layer if it has not yet been built
         if not self.built:
@@ -78,7 +79,7 @@ class Dense(Layer):
 
         # Applies regularisation to the weight gradients
         if self.weight_regulariser is not None:
-            nabla_w += self.weight_regulariser.derivative(self.weights)  
+            nabla_w += self.weight_regulariser.derivative(self.weights)
 
         # Optimises gradients
         nabla_w, nabla_b = optimiser(self, [nabla_w, nabla_b])
@@ -88,12 +89,12 @@ class Dense(Layer):
         self.biases += nabla_b
 
         return delta
-    
+
     def penalty(self) -> float:
         if self.built and self.weight_regulariser is not None:
             return self.weight_regulariser(self.weights)
         return 0
-    
+
     def set_variables(self, variables: list[np.ndarray]):
         super().set_variables(variables)
         self.weights = variables[0]

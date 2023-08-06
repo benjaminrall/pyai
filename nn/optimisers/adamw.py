@@ -1,15 +1,18 @@
-import numpy as np
 from collections import defaultdict
-from pyai.nn.optimisers.optimiser import Optimiser
-from pyai.nn.layers.layer import Layer
+
+import numpy as np
+
 from pyai.backend.utilities import epsilon
+from pyai.nn.layers.layer import Layer
+from pyai.nn.optimisers.optimiser import Optimiser
+
 
 class AdamW(Optimiser):
     """Optimiser that implements the AdamW algorithm."""
 
     name = "adamw"
 
-    def __init__(self, eta: float = 0.001, weight_decay: float = 0.004, 
+    def __init__(self, eta: float = 0.001, weight_decay: float = 0.004,
                  beta_1: float = 0.9, beta_2: float = 0.999, bias_correction: bool = True) -> None:
         self.eta = eta
         self.weight_decay = weight_decay
@@ -39,7 +42,7 @@ class AdamW(Optimiser):
                 corrected_V = layer_V[i] / (1 - np.power(self.beta_2, iteration))
 
             # Applies the adapted learning rate to the gradients with additional weight decay
-            gradients[i] = -self.eta * (corrected_M / (np.sqrt(corrected_V) + self.epsilon) 
+            gradients[i] = -self.eta * (corrected_M / (np.sqrt(corrected_V) + self.epsilon)
                                         + self.weight_decay * layer.variables[i])
-        
+
         return gradients

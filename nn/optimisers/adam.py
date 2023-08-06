@@ -1,15 +1,18 @@
-import numpy as np
 from collections import defaultdict
-from pyai.nn.optimisers.optimiser import Optimiser
-from pyai.nn.layers.layer import Layer
+
+import numpy as np
+
 from pyai.backend.utilities import epsilon
+from pyai.nn.layers.layer import Layer
+from pyai.nn.optimisers.optimiser import Optimiser
+
 
 class Adam(Optimiser):
     """Optimiser that implements the Adam algorithm."""
 
     name = "adam"
 
-    def __init__(self, eta: float = 0.001, beta_1: float = 0.9, 
+    def __init__(self, eta: float = 0.001, beta_1: float = 0.9,
                  beta_2: float = 0.999, bias_correction: bool = True) -> None:
         self.eta = eta
         self.beta_1 = beta_1
@@ -39,5 +42,5 @@ class Adam(Optimiser):
 
             # Applies the adapted learning rate to the gradients
             gradients[i] = -self.eta * corrected_M / (np.sqrt(corrected_V) + self.epsilon)
-        
+
         return gradients

@@ -1,19 +1,21 @@
 import numpy as np
+from numpy.lib.stride_tricks import as_strided
+
 import pyai.nn.activations as activations
 import pyai.nn.initialisers as initialisers
 import pyai.nn.regularisers as regularisers
+from pyai.backend import dilate
 from pyai.nn.layers.layer import Layer
 from pyai.nn.optimisers.optimiser import Optimiser
-from pyai.backend import dilate
-from numpy.lib.stride_tricks import as_strided
+
 
 class Conv2D(Layer):
     """A neural network layer that performs spatial convolution over 2D data."""
 
     n_variables = 2
 
-    def __init__(self, filters: int, 
-                 kernel_size: tuple[int, int], 
+    def __init__(self, filters: int,
+                 kernel_size: tuple[int, int],
                  strides: tuple[int, int] = (1, 1),
                  activation: str | activations.Activation = None,
                  kernel_initialiser: str | initialisers.Initialiser = "glorot_uniform",
@@ -43,13 +45,13 @@ class Conv2D(Layer):
         # Calculates output rows and cols
         output_rows = (input_shape[0] - self.kernel_size[0]) // self.strides[0] + 1
         output_cols = (input_shape[1] - self.kernel_size[1]) // self.strides[1] + 1
-        
+
         # Stores the output shape and the shape of the input view for convolution
         self.output_shape = (output_rows, output_cols, self.filters)
         self.view_shape = self.output_shape[:2] + self.kernel_size + input_shape[2:]
 
         # Initialises kernels and biases
-        self.kernels = self.kernel_initialiser(self.kernel_size + (input_shape[-1], self.filters))
+        self.kernels = self.kernel_initialiser((*self.kernel_size, input_shape[-1], self.filters))
         self.biases = self.bias_initialiser((self.filters,))
 
         self.variables = [self.kernels, self.biases]
@@ -76,7 +78,7 @@ class Conv2D(Layer):
         s0, s1 = input.strides[1:3]
         kernel_strides = (self.strides[0] * s0, self.strides[1] * s1, s0, s1)
         self.input_view = as_strided(
-            input, input.shape[:1] + self.view_shape, 
+            input, input.shape[:1] + self.view_shape,
             input.strides[:1] + kernel_strides + input.strides[3:]
         )
 
@@ -87,15 +89,15 @@ class Conv2D(Layer):
         if self.activation is not None:
             return self.activation(self.z)
         return self.z
-            
-    def backward(self, derivatives: np.ndarray, optimiser: Optimiser) -> np.ndarray:    
+
+    def backward(self, derivatives: np.ndarray, optimiser: Optimiser) -> np.ndarray:
         # Calculates derivatives for the activation function if one was applied
         if self.activation is not None:
             derivatives = self.activation.derivative(self.z) * derivatives
 
         # Dilates the matrix to account for varying stride values
         dilated_derivatives = dilate(derivatives, self.strides)
-            
+
         # Pads the input derivative in order to calculate delta
         py, px = self.kernel_size[0] - 1, self.kernel_size[1] - 1
         pd = np.pad(dilated_derivatives, ((0, 0), (py, py), (px, px), (0, 0)))
@@ -120,7 +122,7 @@ class Conv2D(Layer):
 
         # Applies regularisation to the weight gradients
         if self.kernel_regulariser is not None:
-            nabla_k += self.kernel_regulariser.derivative(self.kernels)  
+            nabla_k += self.kernel_regulariser.derivative(self.kernels)
 
         # Optimises gradients
         nabla_k, nabla_b = optimiser(self, [nabla_k, nabla_b])
@@ -130,7 +132,7 @@ class Conv2D(Layer):
         self.biases += nabla_b
 
         return delta
-    
+
     def penalty(self) -> float:
         if self.built and self.kernel_regulariser is not None:
             return self.kernel_regulariser(self.kernels)

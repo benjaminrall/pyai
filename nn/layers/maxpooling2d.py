@@ -1,10 +1,12 @@
 import numpy as np
+
 from pyai.nn.layers.layer import Layer
+
 
 class MaxPooling2D(Layer):
     """A neural network layer that performs the max pooling operation for 2D spatial data."""
 
-    def __init__(self, pool_size=(2, 2), strides=None) -> None:
+    def __init__(self, pool_size: tuple = (2, 2), strides: tuple | None = None) -> None:
         super().__init__()
         self.pool_size = pool_size
         self.strides = strides if strides else pool_size
@@ -42,12 +44,12 @@ class MaxPooling2D(Layer):
         maxes = np.max(pools, axis=(3, 4))
         self.max_mask = pools == maxes[:, :, :, None, None]
         return maxes
-        
-            
+
+
     def backward(self, derivatives: np.ndarray, _) -> np.ndarray:
         # Scales the max mask by the derivatives
         derivatives = derivatives[:, :, :, None, None] * self.max_mask
-        
+
         # Combines the pools back into the input shape to create delta
         rows, cols = derivatives.shape[1:3]
         delta = np.zeros(derivatives.shape[:1] + self.input_shape)
@@ -56,5 +58,5 @@ class MaxPooling2D(Layer):
                 my, mx = row * self.strides[0], col * self.strides[1]
                 ny, nx = my + self.pool_size[0], mx + self.pool_size[1]
                 delta[:, my:ny, mx:nx] += derivatives[:, row, col]
-        
+
         return delta

@@ -1,10 +1,12 @@
 import numpy as np
+
 from pyai.nn.layers.layer import Layer
+
 
 class AveragePooling2D(Layer):
     """A neural network layer that performs the average pooling operation for 2D spatial data."""
 
-    def __init__(self, pool_size: tuple = (2, 2), strides: tuple = None) -> None:
+    def __init__(self, pool_size: tuple = (2, 2), strides: tuple | None = None) -> None:
         super().__init__()
         self.pool_size = pool_size
         self.strides = strides if strides else pool_size
@@ -42,14 +44,14 @@ class AveragePooling2D(Layer):
         averages = np.mean(pools, axis=(3, 4))
         self.average_mask = np.full(pools.shape, 1 / (self.pool_size[0] * self.pool_size[1]))
         return averages
-            
+
     def backward(self, derivatives: np.ndarray, _) -> np.ndarray:
         # Scales the average mask by the derivatives
         derivatives = derivatives[:, :, :, None, None] * self.average_mask
 
         # Combines the pools back into the input shape to create delta
         rows, cols = derivatives.shape[1:3]
-        delta = np.zeros(derivatives.shape[:1] + self.input_shape)  
+        delta = np.zeros(derivatives.shape[:1] + self.input_shape)
         for row in range(rows):
             for col in range(cols):
                 my, mx = row * self.strides[0], col * self.strides[1]

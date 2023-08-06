@@ -29,17 +29,19 @@ def dilate(x: np.ndarray, dilation_factor: tuple) -> np.ndarray:
     """Dilates a tensor by inserting gaps between its rows and columns.
 
     Args:
+    ----
         x (np.ndarray): The input tensor with shape (batches, rows, cols, ...)
         dilation_factor (tuple): The factors by which to dilate the tensor in
         each direction.
 
     Returns:
+    -------
         np.ndarray: The dilated tensor.
     """
     # Case in which no dilation takes place
     if dilation_factor == (1, 1):
         return x
-    
+
     dy, dx = dilation_factor
 
     # Calculates resulting shape of the dilated tensor

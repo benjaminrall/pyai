@@ -1,5 +1,7 @@
 import numpy as np
+
 from pyai.nn.layers.layer import Layer
+
 
 class Dropout(Layer):
     """A neural network layer that applies dropout to the inputs."""
@@ -27,10 +29,10 @@ class Dropout(Layer):
 
         # Generates and stores the mask and scale for this pass
         self.mask = np.random.binomial(1, self.inverse_rate, input.shape)
-        
+
         # Applies the mask and scaling factor to the input
         return input * self.mask * self.scale
-    
+
     def backward(self, derivatives: np.ndarray, _) -> np.ndarray:
         # Applies the mask and scaling factor to the derivatives
         return derivatives * self.mask * self.scale

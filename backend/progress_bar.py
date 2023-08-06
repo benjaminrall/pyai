@@ -1,17 +1,21 @@
 import time
 from collections.abc import Iterable
 
+
 class ProgressBar:
     """Decorates an iterable object with a progress bar that is printed to the console.
-    
-    TODO: 
-    - Make estimate and animation run on a separate thread 
+
+    Todo:
+    ----
+    - Make estimate and animation run on a separate thread
     - Separate each display aspect and have them combined automatically
     """
 
+    default_animation = ['-', '\\', '|', '/', '-', '\\', '|', '/']
+
     def __init__(self, title: str, iterable: Iterable, minimum_interval: float = 0.01, bars: int = 50,
-                 newline_close: bool = True, estimate_interval: float = 0.01, animation_interval: float = 0.1, 
-                 animation: list[str] = ['-', '\\', '|', '/', '-', '\\', '|', '/']):
+                 newline_close: bool = True, estimate_interval: float = 0.01, animation_interval: float = 0.1,
+                 animation: list[str] = default_animation):
         # Stores iterable to be decorated and finds length of it
         self.iterable = iterable
         self.total = len(iterable)
@@ -28,7 +32,7 @@ class ProgressBar:
         self.animation = animation
         self.animation_index = 0
         self.animation_interval = animation_interval
-        
+
         # Current and previous iterator values
         self.n = 0
         self.last_n = 0
@@ -40,7 +44,7 @@ class ProgressBar:
         # Stores local reference to time.time() method and the total time elapsed
         self._time = time.time
         self.time_elapsed = 0
-    
+
     def __iter__(self):
         """Iterable interface for the progress bar."""
         # Stores instance variables as locals for speed optimisation
@@ -72,7 +76,7 @@ class ProgressBar:
             # Checks if minimum iterations condition for updating is met
             if n - last_n >= self.minimum_iterations:
                 current_time = self._time()
-                
+
                 # Checks if the progress bar should be updated
                 print_difference = current_time - last_print_time
                 if print_difference >= minimum_interval:
@@ -86,7 +90,7 @@ class ProgressBar:
                 if estimate_difference >= estimate_interval:
                     self.estimate = ((current_time - start_time) / n) * (total - n)
                     last_estimate_time += estimate_difference
-        
+
                 # Checks if the animation should progress
                 animation_difference = current_time - last_animation_time
                 if animation_difference >= animation_interval:
@@ -104,17 +108,17 @@ class ProgressBar:
         # Does not allow negative or 0 change
         if change <= 0:
             return
-        
+
         # Updates the iterator position
         self.n += change
-        dn = self.n - self.last_n 
+        dn = self.n - self.last_n
 
         # Checks if the progress bar being displayed needs to be updated
         if dn >= self.minimum_iterations:
             # Updates last n and displays the progress bar
             self.last_n = self.n
             self.display()
-      
+
             # Calculates the new minimum iterations before updating
             self.minimum_iterations = max(self.minimum_iterations, dn)
 
@@ -129,7 +133,7 @@ class ProgressBar:
 
         # Prints full formatted string
         print("{:^5s}{:s} - {:>6.1%} {:^s} {:{}d}/{:d} - Time elapsed: {:.1f}s - Estimate time: {:.1f}s{:10s}".format(
-            self.animation[self.animation_index], self.title, percentage, 
+            self.animation[self.animation_index], self.title, percentage,
             progress, self.n, len(str(self.total)), self.total, self.time_elapsed, self.estimate, ''
         ), end='\r')
 
@@ -137,6 +141,6 @@ class ProgressBar:
         """Disables the progress bar and prints final display."""
         # Prints over last display with complete closed formatted progress bar string
         print("{:^5s}{:s} - {:>6.1%} {:^s} {}/{} - Time elapsed: {:.1f}s".format(
-            self.animation[0], self.title, 1, '[' + '=' * self.bars + ']', 
+            self.animation[0], self.title, 1, '[' + '=' * self.bars + ']',
             self.total, self.total, self.time_elapsed
         ), end = '\n' if self.newline_close else '')

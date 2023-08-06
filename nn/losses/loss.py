@@ -1,5 +1,7 @@
-import numpy as np
 from abc import ABC, abstractmethod
+
+import numpy as np
+
 
 class Loss(ABC):
     """The class from which all loss functions inherit."""
