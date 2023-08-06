@@ -11,7 +11,7 @@ class HeNormal(Initialiser):
     name = "he_normal"
 
     def call(self, shape: tuple) -> np.ndarray:
-        """Returns a tensor of shape `shape` filled with values from the He normal initialiser."""
+        """Returns a Numpy array of shape `shape` filled with values from the He normal initialiser."""
         scale = np.sqrt(2 / shape[-2])
         return np.random.normal(scale=scale, size=shape)
 
@@ -21,6 +21,6 @@ class HeUniform(Initialiser):
     name = "he_uniform"
 
     def call(self, shape: tuple) -> np.ndarray:
-        """Returns a tensor of shape `shape` filled with values from the He uniform initialiser."""
+        """Returns a Numpy array of shape `shape` filled with values from the He uniform initialiser."""
         limit = np.sqrt(6 / shape[-2])
         return np.random.uniform(-limit, limit, shape)

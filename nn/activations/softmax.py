@@ -9,7 +9,7 @@ from pyai.nn.backend.activations import softmax
 class Softmax(Activation):
     """Softmax activation function.
 
-    Converts all input vectors to probability distributions.
+    Converts vectors of values to probability distributions.
     """
 
     name = "softmax"

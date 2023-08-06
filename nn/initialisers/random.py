@@ -6,7 +6,7 @@ from pyai.nn.initialisers.initialiser import Initialiser
 
 
 class RandomNormal(Initialiser):
-    """Initialiser that generates tensors with a normal distribution."""
+    """Initialiser that generates Numpy arrays with a normal distribution."""
 
     name = "random_normal"
 
@@ -15,11 +15,11 @@ class RandomNormal(Initialiser):
         self.stddev = stddev
 
     def call(self, shape: tuple) -> np.ndarray:
-        """Returns a tensor of shape `shape` filled with values from a random normal distribution."""
+        """Returns a Numpy array of shape `shape` filled with values from a random normal distribution."""
         return np.random.normal(self.mean, self.stddev, shape)
 
 class RandomUniform(Initialiser):
-    """Initialiser that generates tensors with a uniform distribution."""
+    """Initialiser that generates Numpy arrays with a uniform distribution."""
 
     name = "random_uniform"
 
@@ -28,5 +28,5 @@ class RandomUniform(Initialiser):
         self.high = high
 
     def call(self, shape: tuple) -> np.ndarray:
-        """Returns a tensor of shape `shape` filled with values from a random uniform distribution."""
+        """Returns a Numpy array of shape `shape` filled with values from a random uniform distribution."""
         return np.random.uniform(self.low, self.high, shape)

@@ -11,9 +11,9 @@ class Initialiser(ABC):
     name: str
 
     def __call__(self, shape: tuple) -> np.ndarray:
-        """Returns a tensor of shape `shape` filled with values from the initialiser."""
+        """Returns a Numpy array of shape `shape` filled with values from the initialiser."""
         return self.call(shape)
 
     @abstractmethod
     def call(self, shape: tuple) -> np.ndarray:
-        """Returns a tensor of shape `shape` filled with values from the initialiser."""
+        """Returns a Numpy array of shape `shape` filled with values from the initialiser."""

@@ -11,7 +11,7 @@ class GlorotNormal(Initialiser):
     name = "glorot_normal"
 
     def call(self, shape: tuple) -> np.ndarray:
-        """Returns a tensor of shape `shape` filled with values from the Glorot normal initialiser."""
+        """Returns a Numpy array of shape `shape` filled with values from the Glorot normal initialiser."""
         scale = np.sqrt(2 / (shape[-2] + shape[-1]))
         return np.random.normal(scale=scale, size=shape)
 
@@ -21,6 +21,6 @@ class GlorotUniform(Initialiser):
     name = "glorot_uniform"
 
     def call(self, shape: tuple) -> np.ndarray:
-        """Returns a tensor of shape `shape` filled with values from the Glorot uniform initialiser."""
+        """Returns a Numpy array of shape `shape` filled with values from the Glorot uniform initialiser."""
         limit = np.sqrt(6 / (shape[-2] + shape[-1]))
         return np.random.uniform(-limit, limit, shape)
