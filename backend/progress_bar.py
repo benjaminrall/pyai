@@ -1,5 +1,8 @@
+"""Progress Bar class."""
+
 import time
 from collections.abc import Iterable
+from typing import ClassVar
 
 
 class ProgressBar:
@@ -11,11 +14,25 @@ class ProgressBar:
     - Separate each display aspect and have them combined automatically
     """
 
-    default_animation = ['-', '\\', '|', '/', '-', '\\', '|', '/']
+    default_animation: ClassVar[list] = ['-', '\\', '|', '/', '-', '\\', '|', '/']
 
     def __init__(self, title: str, iterable: Iterable, minimum_interval: float = 0.01, bars: int = 50,
                  newline_close: bool = True, estimate_interval: float = 0.01, animation_interval: float = 0.1,
                  animation: list[str] = default_animation):
+        """Creates a new progress bar for a given iterable.
+
+        Args:
+        ----
+            title (str): The title of the progress bar.
+            iterable (Iterable): The iterable to wrap with the progress bar.
+            minimum_interval (float): The minimum interval in seconds between progress bar updates.
+            bars (int): The amount of bar characters used in the progress bar.
+            newline_close (bool): Whether to close the progress bar with a newline.
+            estimate_interval (float): The interval in seconds between estimate updates.
+            animation_interval (float): The interval in seconds between animation updates.
+            animation (list[str]): The animation to be displayed. Must be a list containing
+            an arbitrary number of characters to be looped through.
+        """
         # Stores iterable to be decorated and finds length of it
         self.iterable = iterable
         self.total = len(iterable)
@@ -101,6 +118,7 @@ class ProgressBar:
         self.close()
 
     def __len__(self):
+        """Returns the length of the iterable wrapped by the progress bar."""
         return len(self.iterable)
 
     def update(self, change=1):

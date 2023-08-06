@@ -1,3 +1,5 @@
+"""Nadam optimiser class."""
+
 from collections import defaultdict
 
 import numpy as np
@@ -25,24 +27,25 @@ class Nadam(Optimiser):
         self.epsilon = epsilon()
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:
+        """Applies the Nadam optimisation algorithm to the given gradients."""
         # Loops through the gradients for each variable in the layer
         iteration = self.iterations[layer] = self.iterations[layer] + 1
-        layer_M = self.m[layer]
-        layer_V = self.v[layer]
+        layer_m = self.m[layer]
+        layer_v = self.v[layer]
         for i in range(len(gradients)):
             # Calculates the new first and second order moments (M and V)
-            corrected_M = layer_M[i] = self.beta_1 * layer_M[i] + self.one_sub_beta_1 * gradients[i]
-            corrected_V = layer_V[i] = self.beta_2 * layer_V[i] + self.one_sub_beta_2 * np.square(gradients[i])
+            corrected_m = layer_m[i] = self.beta_1 * layer_m[i] + self.one_sub_beta_1 * gradients[i]
+            corrected_v = layer_v[i] = self.beta_2 * layer_v[i] + self.one_sub_beta_2 * np.square(gradients[i])
 
             # Calculates the bias-corrected M and V values
             if self.bias_correction:
-                corrected_M = layer_M[i] / (1 - np.power(self.beta_1, iteration))
-                corrected_V = layer_V[i] / (1 - np.power(self.beta_2, iteration))
+                corrected_m = layer_m[i] / (1 - np.power(self.beta_1, iteration))
+                corrected_v = layer_v[i] / (1 - np.power(self.beta_2, iteration))
 
             # Applies Nesterov momentum
-            corrected_M = self.beta_1 * corrected_M + self.one_sub_beta_1 * gradients[i]
+            corrected_m = self.beta_1 * corrected_m + self.one_sub_beta_1 * gradients[i]
 
             # Applies the adapted learning rate to the gradients
-            gradients[i] = -self.eta * corrected_M / (np.sqrt(corrected_V) + self.epsilon)
+            gradients[i] = -self.eta * corrected_m / (np.sqrt(corrected_v) + self.epsilon)
 
         return gradients

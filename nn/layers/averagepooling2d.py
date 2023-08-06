@@ -1,3 +1,5 @@
+"""2D Average Pooling layer class."""
+
 import numpy as np
 
 from pyai.nn.layers.layer import Layer
@@ -12,6 +14,7 @@ class AveragePooling2D(Layer):
         self.strides = strides if strides else pool_size
 
     def build(self, input_shape: tuple) -> tuple:
+        """Creates and initialises the variables of the 2D Average Pooling layer."""
         self.input_shape = input_shape
 
         # Calculates the amount of output rows and columns after pooling
@@ -26,6 +29,7 @@ class AveragePooling2D(Layer):
         return self.output_shape
 
     def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
+        """Calculates the output of the 2D Average Pooling layer for a given input."""
         # Builds the layer if it has not yet been built.
         if not self.built:
             self.build(input.shape[1:])
@@ -46,6 +50,7 @@ class AveragePooling2D(Layer):
         return averages
 
     def backward(self, derivatives: np.ndarray, _) -> np.ndarray:
+        """Performs a backwards pass through the layer."""
         # Scales the average mask by the derivatives
         derivatives = derivatives[:, :, :, None, None] * self.average_mask
 

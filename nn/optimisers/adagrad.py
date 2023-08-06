@@ -1,3 +1,5 @@
+"""Adagrad optimiser class."""
+
 from collections import defaultdict
 
 import numpy as np
@@ -27,6 +29,7 @@ class Adagrad(Optimiser):
         return defaultdict(self.get_accumulator_value)
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:
+        """Applies the Adagrad optimisation algorithm to the given gradients."""
         # Loops through the gradients for each variable in the layer
         layer_accumulator = self.accumulators[layer]
         for i in range(len(gradients)):

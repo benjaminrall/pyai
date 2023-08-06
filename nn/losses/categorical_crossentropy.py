@@ -1,3 +1,5 @@
+"""Categorical Cross-entropy loss function class."""
+
 import numpy as np
 
 from pyai.nn.backend.losses import categorical_crossentropy, normalise_output
@@ -13,7 +15,9 @@ class CategoricalCrossentropy(Loss):
         self.from_logits = from_logits
 
     def call(self, output: np.ndarray, target: np.ndarray) -> float:
+        """Calculates the result of the categorical cross-entropy loss function."""
         return categorical_crossentropy(output, target, self.from_logits)
 
     def derivative(self, output: np.ndarray, target: np.ndarray) -> np.ndarray:
+        """Calculates the derivative of the categorical cross-entropy loss function."""
         return normalise_output(output, self.from_logits) - target

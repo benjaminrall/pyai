@@ -1,3 +1,5 @@
+"""Constant initialiser classes."""
+
 import numpy as np
 
 from pyai.nn.initialisers.initialiser import Initialiser
@@ -9,6 +11,7 @@ class Zeros(Initialiser):
     name = "zeros"
 
     def call(self, shape: tuple) -> np.ndarray:
+        """Returns a tensor of shape `shape` filled with zeros."""
         return np.zeros(shape)
 
 class Ones(Initialiser):
@@ -17,6 +20,7 @@ class Ones(Initialiser):
     name = "ones"
 
     def call(self, shape: tuple) -> np.ndarray:
+        """Returns a tensor of shape `shape` filled with ones."""
         return np.ones(shape)
 
 class Constant(Initialiser):
@@ -28,4 +32,5 @@ class Constant(Initialiser):
         self.value = value
 
     def call(self, shape: tuple) -> np.ndarray:
+        """Returns a tensor of shape `shape` filled with a constant value."""
         return np.full(shape, self.value, dtype=float)

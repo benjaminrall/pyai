@@ -1,3 +1,5 @@
+"""Neural network activation functions."""
+
 import numpy as np
 
 

@@ -1,3 +1,5 @@
+"""2D Convolutional layer class."""
+
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
 
@@ -39,6 +41,7 @@ class Conv2D(Layer):
         self.kernel_regulariser = regularisers.get(kernel_regulariser, True)
 
     def build(self, input_shape: tuple) -> tuple:
+        """Creates and initialises the variables of the 2D Convolutional layer."""
         # Sets input shape
         self.input_shape = input_shape
 
@@ -63,6 +66,7 @@ class Conv2D(Layer):
         return self.output_shape
 
     def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
+        """Calculates the output of the 2D Convolutional layer for a given input."""
         # Reshapes inputs that don't have channels to have a single channel
         if len(input.shape) == 3:
              input = np.reshape(input, input.shape[:3] + (1,))
@@ -91,6 +95,7 @@ class Conv2D(Layer):
         return self.z
 
     def backward(self, derivatives: np.ndarray, optimiser: Optimiser) -> np.ndarray:
+        """Performs a backwards pass through the layer and applies gradient updates."""
         # Calculates derivatives for the activation function if one was applied
         if self.activation is not None:
             derivatives = self.activation.derivative(self.z) * derivatives
@@ -134,11 +139,13 @@ class Conv2D(Layer):
         return delta
 
     def penalty(self) -> float:
+        """Calculates the regularisation penalty of the layer."""
         if self.built and self.kernel_regulariser is not None:
             return self.kernel_regulariser(self.kernels)
         return 0
 
     def set_variables(self, variables: list[np.ndarray]) -> None:
+        """Sets the kernels and biases of the layer from a list of numpy arrays."""
         super().set_variables(variables)
         self.kernels = variables[0]
         self.biases = variables[1]

@@ -1,3 +1,5 @@
+"""Mean Squared Error loss function class."""
+
 import numpy as np
 
 from pyai.nn.backend.losses import mean_squared_error
@@ -10,7 +12,9 @@ class MeanSquaredError(Loss):
     name = "mean_squared_error"
 
     def call(self, output: np.ndarray, target: np.ndarray) -> float:
+        """Calculates the result of the mean squared error loss function."""
         return mean_squared_error(output, target)
 
     def derivative(self, output: np.ndarray, target: np.ndarray) -> np.ndarray:
+        """Calculates the derivative of the mean squared error loss function."""
         return 2 * (output - target)

@@ -1,3 +1,5 @@
+"""Random initialiser classes."""
+
 import numpy as np
 
 from pyai.nn.initialisers.initialiser import Initialiser
@@ -13,6 +15,7 @@ class RandomNormal(Initialiser):
         self.stddev = stddev
 
     def call(self, shape: tuple) -> np.ndarray:
+        """Returns a tensor of shape `shape` filled with values from a random normal distribution."""
         return np.random.normal(self.mean, self.stddev, shape)
 
 class RandomUniform(Initialiser):
@@ -25,4 +28,5 @@ class RandomUniform(Initialiser):
         self.high = high
 
     def call(self, shape: tuple) -> np.ndarray:
+        """Returns a tensor of shape `shape` filled with values from a random uniform distribution."""
         return np.random.uniform(self.low, self.high, shape)

@@ -1,3 +1,5 @@
+"""RMSprop optimiser class."""
+
 from collections import defaultdict
 
 import numpy as np
@@ -20,6 +22,7 @@ class RMSprop(Optimiser):
         self.epsilon = epsilon()
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:
+        """Applies the RMSprop optimisation algorithm to the given gradients."""
         # Loops through the gradients for each variable in the layer
         layer_averages = self.averages[layer]
         for i in range(len(gradients)):

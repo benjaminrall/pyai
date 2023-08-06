@@ -1,3 +1,5 @@
+"""Neural network regularisation penalty functions."""
+
 import numpy as np
 
 

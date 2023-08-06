@@ -1,3 +1,5 @@
+"""Network class."""
+
 import pickle
 
 import numpy as np
@@ -9,9 +11,7 @@ from pyai.nn.layers.layer import Layer
 
 
 class Network:
-    """`Network` is a neural network model consisting of a
-    linear stack of layers through which data is passed.
-    """
+    """`Network` is a neural network consisting of a linear stack of layers."""
 
     def __init__(self, layers: list[Layer] | None = None) -> None:
         """Creates a `Network` instance.
@@ -33,7 +33,7 @@ class Network:
         ----
             layer (Layer): An instance of a layer.
 
-        Raises:
+        Raises
         ------
             TypeError: If layer is not a layer instance.
         """
@@ -68,11 +68,11 @@ class Network:
         ----
             index (int): Index of the layer to retrieve.
 
-        Raises:
+        Raises
         ------
             IndexError: If the index is out of range.
 
-        Returns:
+        Returns
         -------
             Layer: The layer instance at the given index.
         """
@@ -111,6 +111,16 @@ class Network:
         self.compiled = True
 
     def __call__(self, inputs: np.ndarray, **kwargs) -> np.ndarray:
+        """Calls the network on a given set of inputs.
+
+        Args:
+        ----
+            inputs (np.ndarray): An array of inputs with the shape (batches, ...)
+
+        Returns
+        -------
+            np.ndarray: The outputs of the network.
+        """
         return self.call(inputs, **kwargs)
 
     def call(self, inputs: np.ndarray, **kwargs) -> np.ndarray:
@@ -120,7 +130,7 @@ class Network:
         ----
             inputs (np.ndarray): An array of inputs with the shape (batches, ...)
 
-        Returns:
+        Returns
         -------
             np.ndarray: The outputs of the network.
         """
@@ -201,7 +211,7 @@ class Network:
             x (np.ndarray): The inputs to evaluate the network with.
             y (np.ndarray): The target outputs to evaluate the network with.
 
-        Returns:
+        Returns
         -------
             float: The total loss of the network.
         """
@@ -215,7 +225,7 @@ class Network:
             x (np.ndarray): The inputs to evaluate the network with.
             y (np.ndarray): The target outputs to evaluate the network with.
 
-        Returns:
+        Returns
         -------
             float: The accuracy of the network for all given inputs and outputs.
         """
@@ -233,7 +243,7 @@ class Network:
             batch_size (int): The number of samples per batch of computation.
             verbose (bool): Whether to evaluate the network verbosely.
 
-        Returns:
+        Returns
         -------
             tuple[float, float]: A tuple of the form (loss, accuracy).
         """
@@ -267,7 +277,7 @@ class Network:
             batch_size (int): The number of samples per batch.
             verbose (bool): Whether to predict verbosely.
 
-        Returns:
+        Returns
         -------
             np.ndarray: Array containing the network's predictions.
         """
@@ -355,11 +365,11 @@ class Network:
         ----
             filepath (str): Path to the saved network.
 
-        Raises:
+        Raises
         ------
             OSError: If the file cannot be loaded correctly.
 
-        Returns:
+        Returns
         -------
             Network: The loaded network.
         """
@@ -391,7 +401,7 @@ class Network:
         ----
             variables (list[list[np.ndarray]]): A list containing the variables of each layer.
 
-        Raises:
+        Raises
         ------
             ValueError: If the length of the variables doesn't match the amount of layers in the network.
         """
@@ -422,7 +432,7 @@ class Network:
         ----
             filepath (str): Path to the saved variables.
 
-        Raises:
+        Raises
         ------
             OSError: If the file cannot be loaded correctly.
         """

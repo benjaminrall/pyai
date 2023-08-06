@@ -1,3 +1,5 @@
+"""Binary Cross-entropy loss function class."""
+
 import numpy as np
 
 from pyai.nn.backend.losses import binary_crossentropy
@@ -17,7 +19,9 @@ class BinaryCrossentropy(Loss):
         self.from_logits = from_logits
 
     def call(self, output: np.ndarray, target: np.ndarray) -> float:
+        """Calculates the result of the binary cross-entropy loss function."""
         return binary_crossentropy(output, target, self.from_logits)
 
     def derivative(self, output: np.ndarray, target: np.ndarray) -> np.ndarray:
+        """Calculates the derivative of the binary cross-entropy loss function."""
         return output - target

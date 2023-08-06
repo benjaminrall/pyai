@@ -1,3 +1,5 @@
+"""Base loss function class."""
+
 from abc import ABC, abstractmethod
 
 import numpy as np
@@ -9,6 +11,7 @@ class Loss(ABC):
     name: str
 
     def __call__(self, output: np.ndarray, target: np.ndarray) -> float:
+        """Calculates the result of the loss function for a given output and target."""
         return self.call(output, target)
 
     @abstractmethod

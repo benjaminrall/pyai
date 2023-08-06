@@ -1,3 +1,5 @@
+"""Adamax optimiser class."""
+
 from collections import defaultdict
 
 import numpy as np
@@ -32,21 +34,22 @@ class Adamax(Optimiser):
         self.epsilon = epsilon()
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:
+        """Applies the Adamax optimisation algorithm to the given gradients."""
         # Increases the layer's iteration counter
         iteration = self.iterations[layer] = self.iterations[layer] + 1
 
         # Stores local references to the layer's M and U values
-        layer_M = self.m[layer]
-        layer_U = self.u[layer]
+        layer_m = self.m[layer]
+        layer_u = self.u[layer]
 
         # Loops through the gradients for each variable in the layer
         for i in range(len(gradients)):
             # Calculates new M and U values
-            layer_M[i] = self.beta_1 * layer_M[i] + self.one_sub_beta_1 * gradients[i]
-            layer_U[i] = np.maximum(self.beta_2 * layer_U[i], np.abs(gradients[i]))
+            layer_m[i] = self.beta_1 * layer_m[i] + self.one_sub_beta_1 * gradients[i]
+            layer_u[i] = np.maximum(self.beta_2 * layer_u[i], np.abs(gradients[i]))
 
             # Adjusts learning rate and applies gradient changes
             current_eta = self.eta / (1 - np.power(self.beta_1, iteration))
-            gradients[i] = -current_eta * layer_M[i] / (layer_U[i] + self.epsilon)
+            gradients[i] = -current_eta * layer_m[i] / (layer_u[i] + self.epsilon)
 
         return gradients

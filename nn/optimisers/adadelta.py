@@ -1,3 +1,5 @@
+"""Adadelta optimiser class."""
+
 from collections import defaultdict
 
 import numpy as np
@@ -21,6 +23,7 @@ class Adadelta(Optimiser):
         self.epsilon = epsilon()
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:
+        """Applies the Adadelta optimisation algorithm to the given gradients."""
         # Loops through the gradients for each variable in the layer
         grad_avg = self.grad_avg[layer]
         delta_avg = self.delta_avg[layer]

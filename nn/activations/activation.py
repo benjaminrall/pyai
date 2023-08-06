@@ -1,3 +1,5 @@
+"""Base activation function class."""
+
 from abc import ABC, abstractmethod
 
 import numpy as np
@@ -9,6 +11,7 @@ class Activation(ABC):
     name: str
 
     def __call__(self, x: np.ndarray) -> np.ndarray:
+        """Applies the activation function to an input."""
         return self.call(x)
 
     @abstractmethod

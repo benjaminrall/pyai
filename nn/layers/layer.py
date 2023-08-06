@@ -1,3 +1,5 @@
+"""Base layer class."""
+
 from abc import ABC, abstractmethod
 
 import numpy as np
@@ -20,6 +22,7 @@ class Layer(ABC):
         self.built: bool = False
 
     def __call__(self, input: np.ndarray, **kwargs) -> np.ndarray:
+        """Calculates the output of the layer for a given input."""
         return self.call(input, **kwargs)
 
     @abstractmethod
@@ -28,14 +31,14 @@ class Layer(ABC):
 
     @abstractmethod
     def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
-        """Calculates the output of a layer for a given input."""
+        """Calculates the output of the layer for a given input."""
 
     @abstractmethod
     def backward(self, derivatives: np.ndarray, optimiser: 'pyai.nn.optimisers.Optimiser') -> np.ndarray:
-        """Performs a backwards pass through the network and applies gradient updates."""
+        """Performs a backwards pass through the layer and applies gradient updates if applicable."""
 
     def penalty(self) -> float:
-        """Returns the regularisation penalty of the layer."""
+        """Calculates the regularisation penalty of the layer."""
         return 0
 
     def get_variables(self) -> list[np.ndarray]:

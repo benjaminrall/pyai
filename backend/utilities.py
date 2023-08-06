@@ -1,3 +1,5 @@
+"""Backend utilities."""
+
 import numpy as np
 
 # Small constant used for numerical stability
@@ -30,11 +32,11 @@ def dilate(x: np.ndarray, dilation_factor: tuple) -> np.ndarray:
 
     Args:
     ----
-        x (np.ndarray): The input tensor with shape (batches, rows, cols, ...)
+        x (np.ndarray): The input tensor with shape (batches, rows, cols, ...).
         dilation_factor (tuple): The factors by which to dilate the tensor in
         each direction.
 
-    Returns:
+    Returns
     -------
         np.ndarray: The dilated tensor.
     """

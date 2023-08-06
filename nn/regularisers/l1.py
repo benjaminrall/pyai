@@ -1,3 +1,5 @@
+"""L1 regulariser class."""
+
 import numpy as np
 
 from pyai.nn.backend.regularisers import l1
@@ -13,7 +15,9 @@ class L1(Regulariser):
         self.factor = factor
 
     def call(self, x: np.ndarray) -> float:
+        """Calculates the L1 regularisation penalty."""
         return l1(self.factor, x)
 
     def derivative(self, x: np.ndarray) -> np.ndarray:
+        """Calculates the derivative of the L1 regularisation penalty."""
         return self.factor * np.sign(x)

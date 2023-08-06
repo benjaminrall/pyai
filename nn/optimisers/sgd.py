@@ -1,3 +1,5 @@
+"""SGD optimiser class."""
+
 from collections import defaultdict
 
 import numpy as np
@@ -18,6 +20,7 @@ class SGD(Optimiser):
         self.velocity = defaultdict(Optimiser.zero_cache)
 
     def optimise_gradients(self, layer: Layer, gradients: list[np.ndarray]) -> list[np.ndarray]:
+        """Applies the SGD (with momentum) optimisation algorithm to the given gradients."""
         # Loops through the gradients for each variable in the layer
         layer_velocity = self.velocity[layer]
         for i in range(len(gradients)):

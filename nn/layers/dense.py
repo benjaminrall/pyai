@@ -1,3 +1,5 @@
+"""Dense layer class."""
+
 import numpy as np
 
 import pyai.nn.activations as activations
@@ -35,6 +37,7 @@ class Dense(Layer):
         self.weight_regulariser = regularisers.get(weight_regulariser, True)
 
     def build(self, input_shape: tuple) -> tuple:
+        """Creates and initialises the variables of the Dense layer."""
         # Sets input and output shapes and counts parameters
         self.input_shape = input_shape
         self.output_shape = (input_shape[:-1]) + (self.units,)
@@ -52,6 +55,7 @@ class Dense(Layer):
         return self.output_shape
 
     def call(self, input: np.ndarray, **kwargs) -> np.ndarray:
+        """Calculates the output of the Dense layer for a given input."""
         # Builds the layer if it has not yet been built
         if not self.built:
             self.build(input.shape[1:])
@@ -66,6 +70,7 @@ class Dense(Layer):
         return self.z
 
     def backward(self, derivatives: np.ndarray, optimiser: Optimiser) -> np.ndarray:
+        """Performs a backwards pass through the layer and applies gradient updates."""
         # Calculates derivatives for the activation function if one was applied
         if self.activation is not None:
             derivatives = self.activation.derivative(self.z) * derivatives
@@ -91,11 +96,13 @@ class Dense(Layer):
         return delta
 
     def penalty(self) -> float:
+        """Calculates the regularisation penalty of the layer."""
         if self.built and self.weight_regulariser is not None:
             return self.weight_regulariser(self.weights)
         return 0
 
     def set_variables(self, variables: list[np.ndarray]):
+        """Sets the weights and biases of the layer from a list of numpy arrays."""
         super().set_variables(variables)
         self.weights = variables[0]
         self.biases = variables[1]

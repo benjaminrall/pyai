@@ -1,3 +1,5 @@
+"""Base optimiser class."""
+
 from abc import ABC, abstractmethod
 from collections import defaultdict
 
@@ -12,6 +14,7 @@ class Optimiser(ABC):
     name: str
 
     def __call__(self, layer: Layer, gradients: list) -> None:
+        """Applies the optimisation algorithm to the given gradients."""
         return self.optimise_gradients(layer, gradients)
 
     @staticmethod
