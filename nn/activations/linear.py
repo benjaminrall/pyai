@@ -4,7 +4,7 @@ from pyai.nn.activations.activation import Activation
 class Linear(Activation):
     """Linear activation function (pass-through)."""
 
-    name = 'linear'
+    name = "linear"
 
     def call(self, x: np.ndarray) -> np.ndarray:
         return x

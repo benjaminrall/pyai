@@ -5,7 +5,7 @@ from pyai.nn.backend.activations import softmax
 class Softmax(Activation):
     """Softmax converts a vector of values to a probability distribution."""
 
-    name = 'softmax'
+    name = "softmax"
 
     def call(self, x: np.ndarray) -> np.ndarray:
         return softmax(x)

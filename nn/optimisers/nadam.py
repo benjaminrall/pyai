@@ -7,7 +7,7 @@ from pyai.backend.utilities import epsilon
 class Nadam(Optimiser):
     """Optimiser that implements the Nadam algorithm."""
 
-    name = 'nadam'
+    name = "nadam"
 
     def __init__(self, eta: float = 0.001, beta_1: float = 0.9, beta_2: float = 0.999, bias_correction: bool = True) -> None:
         self.eta = eta

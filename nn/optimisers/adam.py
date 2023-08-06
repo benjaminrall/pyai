@@ -7,7 +7,7 @@ from pyai.backend.utilities import epsilon
 class Adam(Optimiser):
     """Optimiser that implements the Adam algorithm."""
 
-    name = 'adam'
+    name = "adam"
 
     def __init__(self, eta: float = 0.001, beta_1: float = 0.9, 
                  beta_2: float = 0.999, bias_correction: bool = True) -> None:

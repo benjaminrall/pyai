@@ -21,7 +21,7 @@ class ProgressBar:
         self.newline_close = newline_close
 
         # Time estimate attributes
-        self.estimate = float('inf')
+        self.estimate = float("inf")
         self.estimate_interval = estimate_interval
 
         # Animation attributes
@@ -125,18 +125,18 @@ class ProgressBar:
 
         # Calculates amount of filled bars and uses it to construct progress bars
         bars_filled = int(percentage * self.bars)
-        progress = "[" + "=" * bars_filled + ">" + "." * (self.bars - bars_filled - 1) + "]"
+        progress = '[' + '=' * bars_filled + '>' + '.' * (self.bars - bars_filled - 1) + ']'
 
         # Prints full formatted string
         print("{:^5s}{:s} - {:>6.1%} {:^s} {:{}d}/{:d} - Time elapsed: {:.1f}s - Estimate time: {:.1f}s{:10s}".format(
             self.animation[self.animation_index], self.title, percentage, 
-            progress, self.n, len(str(self.total)), self.total, self.time_elapsed, self.estimate, ""
-        ), end="\r")
+            progress, self.n, len(str(self.total)), self.total, self.time_elapsed, self.estimate, ''
+        ), end='\r')
 
     def close(self):
         """Disables the progress bar and prints final display."""
         # Prints over last display with complete closed formatted progress bar string
         print("{:^5s}{:s} - {:>6.1%} {:^s} {}/{} - Time elapsed: {:.1f}s".format(
-            self.animation[0], self.title, 1, "[" + "=" * self.bars + "]", 
+            self.animation[0], self.title, 1, '[' + '=' * self.bars + ']', 
             self.total, self.total, self.time_elapsed
-        ), end = "\n" if self.newline_close else "")
+        ), end = '\n' if self.newline_close else '')

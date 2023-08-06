@@ -7,7 +7,7 @@ from pyai.backend.utilities import epsilon
 class Adamax(Optimiser):
     """Optimiser that implements the Adamax algorithm."""
 
-    name = 'adamax'
+    name = "adamax"
 
     def __init__(self, eta: float = 0.001, beta_1: float = 0.9, beta_2: float = 0.999) -> None:
         # Stores parameter values

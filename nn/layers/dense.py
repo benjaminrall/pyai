@@ -16,8 +16,8 @@ class Dense(Layer):
     
     def __init__(self, units: int, 
                  activation: str | activations.Activation = None,
-                 weight_initialiser: str | initialisers.Initialiser = 'glorot_uniform',
-                 bias_initialiser: str | initialisers.Initialiser = 'zeros',
+                 weight_initialiser: str | initialisers.Initialiser = "glorot_uniform",
+                 bias_initialiser: str | initialisers.Initialiser = "zeros",
                  weight_regulariser: str | regularisers.Regulariser = None
                  ) -> None:
         super().__init__()

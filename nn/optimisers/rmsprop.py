@@ -7,7 +7,7 @@ from pyai.backend.utilities import epsilon
 class RMSprop(Optimiser):
     """Optimiser that implements the RMSProp algorithm."""
 
-    name = 'rmsprop'
+    name = "rmsprop"
 
     def __init__(self, eta: float = 0.001, rho: float = 0.9) -> None:
         self.eta = eta

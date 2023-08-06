@@ -20,7 +20,7 @@ def get(identifier: str | Loss, allow_none: bool = False) -> Loss:
 
     # Attempts to get an instance from a dictionary using the string identifier
     return {
-        'mean_squared_error': MeanSquaredError(),
-        'binary_crossentropy': BinaryCrossentropy(),
-        'categorical_crossentropy': CategoricalCrossentropy()
+        "mean_squared_error": MeanSquaredError(),
+        "binary_crossentropy": BinaryCrossentropy(),
+        "categorical_crossentropy": CategoricalCrossentropy()
     }.get(str(identifier).lower(), None if allow_none else CategoricalCrossentropy())

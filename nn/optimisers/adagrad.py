@@ -7,7 +7,7 @@ from pyai.backend.utilities import epsilon
 class Adagrad(Optimiser):
     """Optimiser that implements the Adagrad algorithm."""
 
-    name = 'adagrad'
+    name = "adagrad"
 
     def __init__(self, eta: float = 0.01, initial_accumulator_value = 0.1) -> None:
         self.eta = eta

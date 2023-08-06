@@ -7,7 +7,7 @@ from pyai.backend.utilities import epsilon
 class AdamW(Optimiser):
     """Optimiser that implements the AdamW algorithm."""
 
-    name = 'adamw'
+    name = "adamw"
 
     def __init__(self, eta: float = 0.001, weight_decay: float = 0.004, 
                  beta_1: float = 0.9, beta_2: float = 0.999, bias_correction: bool = True) -> None:

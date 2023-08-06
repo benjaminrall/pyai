@@ -5,7 +5,7 @@ from pyai.nn.backend.activations import tanh
 class Tanh(Activation):
     """Hyperbolic tangent activation function."""
 
-    name = 'tanh'
+    name = "tanh"
 
     def call(self, x: np.ndarray) -> np.ndarray:
         return tanh(x)

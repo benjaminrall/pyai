@@ -5,7 +5,7 @@ from pyai.nn.backend.regularisers import l1
 class L1(Regulariser):
     """A regulariser that applies an L1 regularisation penalty."""
 
-    name = 'l1'
+    name = "l1"
 
     def __init__(self, factor: float = 0.01) -> None:
         self.factor = factor

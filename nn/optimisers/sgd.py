@@ -7,9 +7,9 @@ from pyai.nn.layers.layer import Layer
 class SGD(Optimiser):
     """Stochastic gradient descent optimiser with momentum."""
 
-    name = 'sgd'
+    name = "sgd"
     
-    def __init__(self, eta: float = 0.01, momentum: float = 0, nesterov: bool = False) -> None:
+    def __init__(self, eta: float = 0.01, momentum: float = 0.0, nesterov: bool = False) -> None:
         self.eta = eta
         self.nesterov = nesterov
         self.momentum = momentum

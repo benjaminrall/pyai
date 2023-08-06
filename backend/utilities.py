@@ -12,13 +12,13 @@ def epsilon_clip(x: np.ndarray) -> np.ndarray:
     return np.clip(x, _EPSILON, 1 - _EPSILON)
 
 def normalise_subarrays(x: np.ndarray) -> np.ndarray:
-    """Normalises subarrays along the last dimension of the input to sum to one."""
+    """Normalises subarrays along the last dimension of the input so that they each sum to one."""
     return x / np.sum(x, axis=-1, keepdims=True)
 
 def one_hot_encode(x: np.ndarray, classes: int = -1) -> np.ndarray:
     """Performs one-hot encoding on an input array with a given number of classes.
 
-    If `classes` is invalid, then it is automatically recalculated as `x.max() + 1`.`
+    If `classes` is invalid, then it is automatically recalculated as `max(x) + 1`.`
     """
     classes = max(np.max(x) + 1, classes)
     one_hot = np.zeros((x.size, classes))

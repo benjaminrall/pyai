@@ -20,7 +20,7 @@ def get(identifier: str | Regulariser, allow_none: bool = False) -> Regulariser:
 
     # Attempts to get an instance from a dictionary using the string identifier
     return {
-        'l1': L1(),
-        'l2': L2(),
-        'l1l2': L1L2()
+        "l1": L1(),
+        "l2": L2(),
+        "l1l2": L1L2()
     }.get(str(identifier).lower(), None if allow_none else L2())

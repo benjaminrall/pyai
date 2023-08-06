@@ -4,7 +4,7 @@ from pyai.nn.initialisers.initialiser import Initialiser
 class Zeros(Initialiser):
     """Initialiser that generates tensors initialised to 0."""
 
-    name = 'zeros'
+    name = "zeros"
     
     def call(self, shape: tuple) -> np.ndarray:
         return np.zeros(shape)
@@ -12,7 +12,7 @@ class Zeros(Initialiser):
 class Ones(Initialiser):
     """Initialiser that generates tensors initialised to 1."""
 
-    name = 'ones'
+    name = "ones"
     
     def call(self, shape: tuple) -> np.ndarray:
         return np.ones(shape)
@@ -20,10 +20,10 @@ class Ones(Initialiser):
 class Constant(Initialiser):
     """Initialiser that generates tensors with constant values."""
 
-    name = 'constant'
+    name = "constant"
 
     def __init__(self, value: float = 0.0) -> None:
         self.value = value
     
     def call(self, shape: tuple) -> np.ndarray:
-        return np.full(shape, self.value)
+        return np.full(shape, self.value, dtype=float)

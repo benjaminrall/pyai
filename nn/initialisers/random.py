@@ -4,7 +4,7 @@ from pyai.nn.initialisers.initialiser import Initialiser
 class RandomNormal(Initialiser):
     """Initialiser that generates tensors with a normal distribution."""
 
-    name = 'random_normal'
+    name = "random_normal"
 
     def __init__(self, mean: float = 0.0, stddev: float = 0.05) -> None:
         self.mean = mean
@@ -16,7 +16,7 @@ class RandomNormal(Initialiser):
 class RandomUniform(Initialiser):
     """Initialiser that generates tensors with a uniform distribution."""
 
-    name = 'random_uniform'
+    name = "random_uniform"
 
     def __init__(self, low: float = -0.05, high: float = 0.05) -> None:
         self.low = low

@@ -5,7 +5,7 @@ from pyai.nn.backend.activations import relu
 class ReLU(Activation):
     """Applies the rectified linear unit activation function."""
 
-    name = 'relu'
+    name = "relu"
 
     def call(self, x: np.ndarray) -> np.ndarray:
         return relu(x)

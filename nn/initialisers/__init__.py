@@ -26,13 +26,13 @@ def get(identifier: str | Initialiser, allow_none: bool = False) -> Initialiser:
 
     # Attempts to get an instance from a dictionary using the string identifier
     return {
-        'glorot_normal': GlorotNormal(),
-        'glorot_uniform': GlorotUniform(),
-        'he_normal': HeNormal(),
-        'he_uniform': HeUniform(),
-        'random_normal': RandomNormal(),
-        'random_uniform': RandomUniform(),
-        'zeros': Zeros(),
-        'ones': Ones(),
-        'constant': Constant(),
+        "glorot_normal": GlorotNormal(),
+        "glorot_uniform": GlorotUniform(),
+        "he_normal": HeNormal(),
+        "he_uniform": HeUniform(),
+        "random_normal": RandomNormal(),
+        "random_uniform": RandomUniform(),
+        "zeros": Zeros(),
+        "ones": Ones(),
+        "constant": Constant(),
     }.get(str(identifier).lower(), None if allow_none else GlorotUniform())

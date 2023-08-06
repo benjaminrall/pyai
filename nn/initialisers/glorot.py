@@ -4,7 +4,7 @@ from pyai.nn.initialisers.initialiser import Initialiser
 class GlorotNormal(Initialiser):
     """The Glorot normal initialiser, also called the Xavier normal initialiser."""
 
-    name = 'glorot_normal'
+    name = "glorot_normal"
     
     def call(self, shape: tuple) -> np.ndarray:
         scale = np.sqrt(2 / (shape[-2] + shape[-1]))
@@ -13,7 +13,7 @@ class GlorotNormal(Initialiser):
 class GlorotUniform(Initialiser):
     """The Glorot uniform initialiser, also called the Xavier uniform initialiser."""
 
-    name = 'glorot_uniform'
+    name = "glorot_uniform"
     
     def call(self, shape: tuple) -> np.ndarray:
         limit = np.sqrt(6 / (shape[-2] + shape[-1]))

@@ -7,9 +7,9 @@ from pyai.backend.utilities import epsilon
 class Adadelta(Optimiser):
     """Optimiser that implements the Adadelta algorithm."""
 
-    name = 'adadelta'
+    name = "adadelta"
 
-    def __init__(self, eta: float = 1, rho = 0.95) -> None:
+    def __init__(self, eta: float = 1.0, rho = 0.95) -> None:
         self.eta = eta
         self.rho = rho
         self.one_sub_rho = 1 - rho

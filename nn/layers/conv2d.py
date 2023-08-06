@@ -16,8 +16,8 @@ class Conv2D(Layer):
                  kernel_size: tuple[int, int], 
                  strides: tuple[int, int] = (1, 1),
                  activation: str | activations.Activation = None,
-                 kernel_initialiser: str | initialisers.Initialiser = 'glorot_uniform',
-                 bias_initialiser: str | initialisers.Initialiser = 'zeros',
+                 kernel_initialiser: str | initialisers.Initialiser = "glorot_uniform",
+                 bias_initialiser: str | initialisers.Initialiser = "zeros",
                  kernel_regulariser: str | regularisers.Regulariser = None
                  ) -> None:
         super().__init__()

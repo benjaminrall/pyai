@@ -22,9 +22,9 @@ def get(identifier: str | Activation, allow_none: bool = False) -> Activation:
 
     # Attempts to get an instance from a dictionary using the string identifier
     return {
-        'linear': Linear(),
-        'tanh': Tanh(),
-        'sigmoid': Sigmoid(),
-        'relu': ReLU(),
-        'softmax': Softmax()
+        "linear": Linear(),
+        "tanh": Tanh(),
+        "sigmoid": Sigmoid(),
+        "relu": ReLU(),
+        "softmax": Softmax()
     }.get(str(identifier).lower(), None if allow_none else Linear())

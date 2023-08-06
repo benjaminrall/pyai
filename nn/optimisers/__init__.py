@@ -25,12 +25,12 @@ def get(identifier: str | Optimiser, allow_none: bool = False) -> Optimiser:
 
     # Attempts to get an instance from a dictionary using the string identifier
     return {
-        'sgd': SGD(),
-        'rmsprop': RMSprop(),
-        'adadelta': Adadelta(),
-        'adagrad': Adagrad(),
-        'adamax': Adamax(),
-        'adam': Adam(),
-        'adamw': AdamW(),
-        'nadam': Nadam()
+        "sgd": SGD(),
+        "rmsprop": RMSprop(),
+        "adadelta": Adadelta(),
+        "adagrad": Adagrad(),
+        "adamax": Adamax(),
+        "adam": Adam(),
+        "adamw": AdamW(),
+        "nadam": Nadam()
     }.get(str(identifier).lower(), None if allow_none else RMSprop())

@@ -4,7 +4,7 @@ from pyai.nn.initialisers.initialiser import Initialiser
 class HeNormal(Initialiser):
     """He normal initialiser."""
 
-    name = 'he_normal'
+    name = "he_normal"
     
     def call(self, shape: tuple) -> np.ndarray:
         scale = np.sqrt(2 / shape[-2])
@@ -13,7 +13,7 @@ class HeNormal(Initialiser):
 class HeUniform(Initialiser):
     """He uniform variance scaling initialiser."""
 
-    name = 'he_uniform'
+    name = "he_uniform"
     
     def call(self, shape: tuple) -> np.ndarray:
         limit = np.sqrt(6 / shape[-2])
