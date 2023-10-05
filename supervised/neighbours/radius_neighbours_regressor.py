@@ -1,0 +1,2 @@
+class RadiusNeighboursRegressor:
+    pass
