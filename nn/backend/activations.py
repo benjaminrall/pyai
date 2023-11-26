@@ -27,6 +27,10 @@ def relu(x: np.ndarray) -> np.ndarray:
     """Applies the rectified linear unit activation function to the input array."""
     return np.maximum(x, 0)
 
+def leaky_relu(x: np.ndarray, alpha: float) -> np.ndarray:
+    """Applies the leaky version of the rectified linear unit activation function to the input array."""
+    return np.maximum(x, alpha * x)
+
 def softmax(x: np.ndarray) -> np.ndarray:
     """Applies the softmax activation function to the input array."""
     # Ensure numerical stability by subtracting the maximum value from the input
