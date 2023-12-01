@@ -8,6 +8,7 @@ from pyai.nn.activations.sigmoid import Sigmoid
 from pyai.nn.activations.softmax import Softmax
 from pyai.nn.activations.tanh import Tanh
 
+ALPHA = 0.3
 
 def get(identifier: str | Activation, allow_none: bool = False) -> Activation:
     """Retrieves an activation function as a class instance.
@@ -28,6 +29,6 @@ def get(identifier: str | Activation, allow_none: bool = False) -> Activation:
         "tanh": Tanh(),
         "sigmoid": Sigmoid(),
         "relu": ReLU(),
-        "leaky_relu": LeakyReLU(),
+        "leaky_relu": LeakyReLU(ALPHA),
         "softmax": Softmax()
     }.get(str(identifier).lower(), None if allow_none else Linear())
