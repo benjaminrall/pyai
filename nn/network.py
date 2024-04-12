@@ -378,7 +378,7 @@ class Network:
             with open(filepath, "rb") as f:
                 network = pickle.load(f)
         except OSError as e:
-            raise OSError("Error loading network from file.p") from e
+            raise OSError("Error loading network from file.") from e
         except pickle.UnpicklingError as e:
             raise OSError(
                 "Error loading network from file. File specified is not a valid pickled binary file."
