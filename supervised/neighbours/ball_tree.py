@@ -1,2 +1,0 @@
-class BallTree:
-    pass

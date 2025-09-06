@@ -1,7 +1,7 @@
-# PyAI Library
+# Python AI
 
-PyAI is an Artificial Intelligence library built from scratch using pure Python and Numpy.
+PythonAI is an Artificial Intelligence library built from scratch using pure Python and Numpy.
 
-The current documentation for the project can be accessed [here](https://github.com/benjaminrall/pyai/wiki).
+The current documentation for the project can be accessed [here](https://github.com/benjaminrall/python-ai/wiki).
 
-This README will be properly created when the project has a few more features to talk about.
+This README will be properly constructed when the project has a few more features to talk about.
